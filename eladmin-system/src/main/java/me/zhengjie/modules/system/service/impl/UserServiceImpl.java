@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByPhone(resources.getPhone()) != null) {
             throw new EntityExistException(User.class, "phone", resources.getPhone());
         }
+        resources.setIsAdmin(false);
         userRepository.save(resources);
     }
 

@@ -15,6 +15,7 @@
  */
 package me.zhengjie.modules.system.domain;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -98,6 +99,7 @@ public class User extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "是否启用")
     private Boolean enabled;
 
+    @JSONField(deserialize = false)
     @ApiModelProperty(value = "是否为admin账号", hidden = true)
     private Boolean isAdmin = false;
 
