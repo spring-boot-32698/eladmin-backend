@@ -24,7 +24,7 @@ import java.io.*;
 import java.util.Vector;
 
 /**
- * 执行shell命令
+ * Execute shell command
  *
  * @author ZhangHouYing
  * @date 2019/8/10

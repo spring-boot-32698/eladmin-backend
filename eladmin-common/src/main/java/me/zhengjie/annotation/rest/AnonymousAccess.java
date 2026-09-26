@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 
 /**
  * @author jacky
- *  用于标记匿名访问方法
+ *  Used to mark methods with anonymous access
  */
 @Inherited
 @Documented

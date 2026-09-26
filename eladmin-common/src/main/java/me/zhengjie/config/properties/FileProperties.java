@@ -28,10 +28,10 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "file")
 public class FileProperties {
 
-    /** 文件大小限制 */
+    /** File size limit */
     private Long maxSize;
 
-    /** 头像大小限制 */
+    /** Avatar size limit */
     private Long avatarMaxSize;
 
     private ElPath mac;

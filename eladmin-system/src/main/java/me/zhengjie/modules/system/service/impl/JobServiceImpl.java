@@ -94,7 +94,7 @@ public class JobServiceImpl implements JobService {
         ValidationUtil.isNull( job.getId(),"Job","id",resources.getId());
         resources.setId(job.getId());
         jobRepository.save(resources);
-        // 删除缓存
+        // Delete cache
         delCaches(resources.getId());
     }
 
@@ -102,7 +102,7 @@ public class JobServiceImpl implements JobService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Long> ids) {
         jobRepository.deleteAllByIdIn(ids);
-        // 删除缓存
+        // Delete cache
         redisUtils.delByKeys(CacheKey.JOB_ID, ids);
     }
 
@@ -111,9 +111,9 @@ public class JobServiceImpl implements JobService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (JobDto jobDTO : jobDtos) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("岗位名称", jobDTO.getName());
-            map.put("岗位状态", jobDTO.getEnabled() ? "启用" : "停用");
-            map.put("创建日期", jobDTO.getCreateTime());
+            map.put("Job name", jobDTO.getName());
+            map.put("Job status", jobDTO.getEnabled() ? "Enable" : "Disable");
+            map.put("Created at", jobDTO.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
@@ -122,12 +122,12 @@ public class JobServiceImpl implements JobService {
     @Override
     public void verification(Set<Long> ids) {
         if(userRepository.countByJobs(ids) > 0){
-            throw new BadRequestException("所选的岗位中存在用户关联，请解除关联再试！");
+            throw new BadRequestException("A selected job is associated with users, please remove the association and try again!");
         }
     }
 
     /**
-     * 删除缓存
+     * Delete cache
      * @param id /
      */
     public void delCaches(Long id){

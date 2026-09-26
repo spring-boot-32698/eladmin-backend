@@ -32,15 +32,15 @@ public class DatabaseDto extends BaseDTO implements Serializable {
 	@ApiModelProperty(value = "ID")
     private String id;
 
-	@ApiModelProperty(value = "数据库名称")
+	@ApiModelProperty(value = "Database name")
     private String name;
 
-	@ApiModelProperty(value = "数据库连接地址")
+	@ApiModelProperty(value = "Database connection URL")
     private String jdbcUrl;
 
-	@ApiModelProperty(value = "数据库密码")
+	@ApiModelProperty(value = "Database password")
     private String pwd;
 
-	@ApiModelProperty(value = "用户名")
+	@ApiModelProperty(value = "Username")
     private String userName;
 }

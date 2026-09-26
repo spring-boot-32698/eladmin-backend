@@ -38,10 +38,10 @@ public class QueryHelp {
         if(query == null){
             return cb.and(list.toArray(new Predicate[0]));
         }
-        // 数据权限验证
+        // Data permission validation
         DataPermission permission = query.getClass().getAnnotation(DataPermission.class);
         if(permission != null){
-            // 获取数据权限
+            // Get data permissions
             List<Long> dataScopes = SecurityUtils.getCurrentUserDataScope();
             if(CollectionUtil.isNotEmpty(dataScopes)){
                 if(StringUtils.isNotBlank(permission.joinName()) && StringUtils.isNotBlank(permission.fieldName())) {
@@ -57,7 +57,7 @@ public class QueryHelp {
             List<Field> fields = getAllFields(query.getClass(), new ArrayList<>());
             for (Field field : fields) {
                 boolean accessible = field.isAccessible();
-                // 设置对象的访问权限，保证对private的属性的访
+                // Set the access permission of the object to ensure access to private properties
                 field.setAccessible(true);
                 Query q = field.getAnnotation(Query.class);
                 if (q != null) {
@@ -71,7 +71,7 @@ public class QueryHelp {
                         continue;
                     }
                     Join join = null;
-                    // 模糊多字段
+                    // Fuzzy multi-field
                     if (ObjectUtil.isNotEmpty(blurry)) {
                         String[] blurrys = blurry.split(",");
                         List<Predicate> orPredicate = new ArrayList<>();

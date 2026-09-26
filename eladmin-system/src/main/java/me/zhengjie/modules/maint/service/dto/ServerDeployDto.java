@@ -33,19 +33,19 @@ public class ServerDeployDto extends BaseDTO implements Serializable {
 	@ApiModelProperty(value = "ID")
     private Long id;
 
-	@ApiModelProperty(value = "名称")
+	@ApiModelProperty(value = "Name")
 	private String name;
 
 	@ApiModelProperty(value = "IP")
 	private String ip;
 
-	@ApiModelProperty(value = "端口")
+	@ApiModelProperty(value = "Port")
 	private Integer port;
 
-	@ApiModelProperty(value = "账号")
+	@ApiModelProperty(value = "Account")
 	private String account;
 
-	@ApiModelProperty(value = "密码")
+	@ApiModelProperty(value = "Password")
 	private String password;
 
 	@Override

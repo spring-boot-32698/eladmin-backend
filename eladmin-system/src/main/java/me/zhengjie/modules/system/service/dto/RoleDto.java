@@ -34,22 +34,22 @@ public class RoleDto extends BaseDTO implements Serializable {
     @ApiModelProperty(value = "ID")
     private Long id;
 
-    @ApiModelProperty(value = "菜单")
+    @ApiModelProperty(value = "Menu")
     private Set<MenuDto> menus;
 
-    @ApiModelProperty(value = "部门")
+    @ApiModelProperty(value = "Department")
     private Set<DeptDto> depts;
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "Name")
     private String name;
 
-    @ApiModelProperty(value = "数据权限")
+    @ApiModelProperty(value = "Data permission")
     private String dataScope;
 
-    @ApiModelProperty(value = "级别")
+    @ApiModelProperty(value = "Level")
     private Integer level;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "Description")
     private String description;
 
     @Override

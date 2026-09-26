@@ -20,7 +20,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 配置文件读取
+ * Configuration file reading
  *
  * @author liaojinlong
  * @date loginCode.length0loginCode.length0/6/10 17:loginCode.length6
@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 public class LoginProperties {
 
     /**
-     * 账号单用户 登录
+     * Single-user login per account
      */
     private boolean singleLogin = false;
 

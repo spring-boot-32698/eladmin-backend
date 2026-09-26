@@ -81,11 +81,11 @@ public class DeployHistoryServiceImpl implements DeployHistoryService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (DeployHistoryDto deployHistoryDto : queryAll) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("部署编号", deployHistoryDto.getDeployId());
-            map.put("应用名称", deployHistoryDto.getAppName());
-            map.put("部署IP", deployHistoryDto.getIp());
-            map.put("部署时间", deployHistoryDto.getDeployDate());
-            map.put("部署人员", deployHistoryDto.getDeployUser());
+            map.put("Deployment ID", deployHistoryDto.getDeployId());
+            map.put("App name", deployHistoryDto.getAppName());
+            map.put("Deploy IP", deployHistoryDto.getIp());
+            map.put("Deployment time", deployHistoryDto.getDeployDate());
+            map.put("Deployer", deployHistoryDto.getDeployUser());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

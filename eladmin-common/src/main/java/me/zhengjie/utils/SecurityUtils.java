@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 获取当前登录的用户
+ * Get the currently logged-in user
  * @author Zheng Jie
  * @date 2019-01-17
  */
@@ -58,7 +58,7 @@ public class SecurityUtils {
     }
 
     /**
-     * 获取当前登录的用户
+     * Get the currently logged-in user
      * @return UserDetails
      */
     public static UserDetails getCurrentUser() {
@@ -67,20 +67,20 @@ public class SecurityUtils {
     }
 
     /**
-     * 获取当前用户的数据权限
+     * Get the data permissions of the current user
      * @return /
      */
     public static List<Long> getCurrentUserDataScope(){
         UserDetails userDetails = getCurrentUser();
-        // 将 Java 对象转换为 JSONObject 对象
+        // Convert a Java object to a JSONObject
         JSONObject jsonObject = (JSONObject) JSON.toJSON(userDetails);
         JSONArray jsonArray = jsonObject.getJSONArray("dataScopes");
         return JSON.parseArray(jsonArray.toJSONString(), Long.class);
     }
 
     /**
-     * 获取数据权限级别
-     * @return 级别
+     * Get the data permission level
+     * @return Level
      */
     public static String getDataScopeType() {
         List<Long> dataScopes = getCurrentUserDataScope();
@@ -91,16 +91,16 @@ public class SecurityUtils {
     }
 
     /**
-     * 获取用户ID
-     * @return 系统用户ID
+     * Get user ID
+     * @return System user ID
      */
     public static Long getCurrentUserId() {
         return getCurrentUserId(getToken());
     }
 
     /**
-     * 获取用户ID
-     * @return 系统用户ID
+     * Get user ID
+     * @return System user ID
      */
     public static Long getCurrentUserId(String token) {
         JWT jwt = JWTUtil.parseToken(token);
@@ -108,18 +108,18 @@ public class SecurityUtils {
     }
 
     /**
-     * 获取系统用户名称
+     * Get the system user name
      *
-     * @return 系统用户名称
+     * @return System user name
      */
     public static String getCurrentUsername() {
         return getCurrentUsername(getToken());
     }
 
     /**
-     * 获取系统用户名称
+     * Get the system user name
      *
-     * @return 系统用户名称
+     * @return System user name
      */
     public static String getCurrentUsername(String token) {
         JWT jwt = JWTUtil.parseToken(token);
@@ -127,7 +127,7 @@ public class SecurityUtils {
     }
 
     /**
-     * 获取Token
+     * Get Token
      * @return /
      */
     public static String getToken() {
@@ -135,10 +135,10 @@ public class SecurityUtils {
                 .getRequestAttributes())).getRequest();
         String bearerToken = request.getHeader(header);
         if (bearerToken != null && bearerToken.startsWith(tokenStartWith)) {
-            // 去掉令牌前缀
+            // Remove the token prefix
             return bearerToken.replace(tokenStartWith, "");
         } else {
-            log.debug("非法Token：{}", bearerToken);
+            log.debug("Illegal token:{}", bearerToken);
         }
         return null;
     }

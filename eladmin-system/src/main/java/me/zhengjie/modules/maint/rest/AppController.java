@@ -40,28 +40,28 @@ import java.util.Set;
 */
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "运维：应用管理")
+@Api(tags = "Operations: app management")
 @RequestMapping("/api/app")
 public class AppController {
 
     private final AppService appService;
 
-    @ApiOperation("导出应用数据")
+    @ApiOperation("Export app data")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('app:list')")
     public void exportApp(HttpServletResponse response, AppQueryCriteria criteria) throws IOException {
         appService.download(appService.queryAll(criteria), response);
     }
 
-    @ApiOperation(value = "查询应用")
+    @ApiOperation(value = "Query apps")
     @GetMapping
     @PreAuthorize("@el.check('app:list')")
     public ResponseEntity<PageResult<AppDto>> queryApp(AppQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(appService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
-    @Log("新增应用")
-    @ApiOperation(value = "新增应用")
+    @Log("Add app")
+    @ApiOperation(value = "Add app")
     @PostMapping
     @PreAuthorize("@el.check('app:add')")
     public ResponseEntity<Object> createApp(@Validated @RequestBody App resources){
@@ -69,8 +69,8 @@ public class AppController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Log("修改应用")
-    @ApiOperation(value = "修改应用")
+    @Log("Edit app")
+    @ApiOperation(value = "Edit app")
     @PutMapping
     @PreAuthorize("@el.check('app:edit')")
     public ResponseEntity<Object> updateApp(@Validated @RequestBody App resources){
@@ -78,8 +78,8 @@ public class AppController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除应用")
-    @ApiOperation(value = "删除应用")
+    @Log("Delete app")
+    @ApiOperation(value = "Delete app")
     @DeleteMapping
     @PreAuthorize("@el.check('app:del')")
     public ResponseEntity<Object> deleteApp(@RequestBody Set<Long> ids){

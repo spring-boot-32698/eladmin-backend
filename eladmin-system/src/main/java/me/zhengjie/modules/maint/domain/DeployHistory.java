@@ -40,20 +40,20 @@ public class DeployHistory implements Serializable {
     @ApiModelProperty(value = "ID", hidden = true)
     private String id;
 
-    @ApiModelProperty(value = "应用名称")
+    @ApiModelProperty(value = "App name")
     private String appName;
 
     @ApiModelProperty(value = "IP")
     private String ip;
 
     @CreationTimestamp
-    @ApiModelProperty(value = "部署时间")
+    @ApiModelProperty(value = "Deployment time")
     private Timestamp deployDate;
 
-    @ApiModelProperty(value = "部署者")
+    @ApiModelProperty(value = "Deployer")
     private String deployUser;
 
-    @ApiModelProperty(value = "部署ID")
+    @ApiModelProperty(value = "Deploy ID")
     private Long deployId;
 
     public void copy(DeployHistory source){

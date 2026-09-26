@@ -116,7 +116,7 @@ public class RoleServiceImpl implements RoleService {
         role.setDepts(resources.getDepts());
         role.setLevel(resources.getLevel());
         roleRepository.save(role);
-        // 更新相关缓存
+        // Update related caches
         delCaches(role.getId(), null);
     }
 
@@ -124,7 +124,7 @@ public class RoleServiceImpl implements RoleService {
     public void updateMenu(Role resources, RoleDto roleDTO) {
         Role role = roleMapper.toEntity(roleDTO);
         List<User> users = userRepository.findByRoleId(role.getId());
-        // 更新菜单
+        // Update menu
         role.setMenus(resources.getMenus());
         delCaches(resources.getId(), users);
         roleRepository.save(role);
@@ -133,7 +133,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void untiedMenu(Long menuId) {
-        // 更新菜单
+        // Update menu
         roleRepository.untiedMenu(menuId);
     }
 
@@ -141,7 +141,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Long> ids) {
         for (Long id : ids) {
-            // 更新相关缓存
+            // Update related caches
             delCaches(id, null);
         }
         roleRepository.deleteAllByIdIn(ids);
@@ -176,7 +176,7 @@ public class RoleServiceImpl implements RoleService {
         List<AuthorityDto> authorityDtos = redisUtils.getList(key, AuthorityDto.class);
         if (CollUtil.isEmpty(authorityDtos)) {
             Set<String> permissions = new HashSet<>();
-            // 如果是管理员直接返回
+            // If it is an admin, return directly
             if (user.getIsAdmin()) {
                 permissions.add("admin");
                 return permissions.stream().map(AuthorityDto::new)
@@ -198,10 +198,10 @@ public class RoleServiceImpl implements RoleService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (RoleDto role : roles) {
             Map<String, Object> map = new LinkedHashMap<>();
-            map.put("角色名称", role.getName());
-            map.put("角色级别", role.getLevel());
-            map.put("描述", role.getDescription());
-            map.put("创建日期", role.getCreateTime());
+            map.put("Role name", role.getName());
+            map.put("Role level", role.getLevel());
+            map.put("Description", role.getDescription());
+            map.put("Created at", role.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
@@ -210,7 +210,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void verification(Set<Long> ids) {
         if (userRepository.countByRoles(ids) > 0) {
-            throw new BadRequestException("所选角色存在用户关联，请解除关联再试！");
+            throw new BadRequestException("A selected role is associated with users, please remove the association and try again!");
         }
     }
 
@@ -220,7 +220,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     /**
-     * 清理缓存
+     * Clear cache
      * @param id /
      */
     public void delCaches(Long id, List<User> users) {

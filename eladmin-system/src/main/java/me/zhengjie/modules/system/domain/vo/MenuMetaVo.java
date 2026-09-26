@@ -28,12 +28,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class MenuMetaVo implements Serializable {
 
-    @ApiModelProperty(value = "菜单标题")
+    @ApiModelProperty(value = "Menu title")
     private String title;
 
-    @ApiModelProperty(value = "菜单图标")
+    @ApiModelProperty(value = "Menu icon")
     private String icon;
 
-    @ApiModelProperty(value = "缓存")
+    @ApiModelProperty(value = "Cache")
     private Boolean noCache;
 }

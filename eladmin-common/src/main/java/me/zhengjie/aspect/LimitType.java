@@ -16,11 +16,11 @@
 package me.zhengjie.aspect;
 
 /**
- * 限流枚举
+ * Rate limit enum
  * @author /
  */
 public enum LimitType {
-    // 默认
+    // Default
     CUSTOMER,
     //  by ip addr
     IP

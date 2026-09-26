@@ -34,33 +34,33 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class WebSocketServer {
 
 	/**
-	 * concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
+	 * concurrent Thread-safe Set used to store the MyWebSocket object of each client.
 	 */
 	private static final CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<>();
 
 	/**
-	 * 与某个客户端的连接会话，需要通过它来给客户端发送数据
+	 * The connection session with a client, used to send data to the client
 	 */
 	private Session session;
 
 	/**
-	 * 接收sid
+	 * Receive sid
 	 */
 	private String sid="";
 	/**
-	 * 连接建立成功调用的方法
+	 * Method called when the connection is established
 	 * */
 	@OnOpen
 	public void onOpen(Session session,@PathParam("sid") String sid) {
 		this.session = session;
-		//如果存在就先删除一个，防止重复推送消息
+		//If one exists, delete it first to prevent duplicate message pushes
 		webSocketSet.removeIf(webSocket -> webSocket.sid.equals(sid));
 		webSocketSet.add(this);
 		this.sid=sid;
 	}
 
 	/**
-	 * 连接关闭调用的方法
+	 * Method called when the connection closes
 	 */
 	@OnClose
 	public void onClose() {
@@ -68,12 +68,12 @@ public class WebSocketServer {
 	}
 
 	/**
-	 * 收到客户端消息后调用的方法
-	 * @param message 客户端发送过来的消息*/
+	 * Method called after receiving a client message
+	 * @param message Message sent by the client*/
 	@OnMessage
 	public void onMessage(String message, Session session) {
-		log.info("收到来"+sid+"的信息:"+message);
-		//群发消息
+		log.info("received from"+sid+" info:"+message);
+		//Broadcast message
 		for (WebSocketServer item : webSocketSet) {
 			try {
 				item.sendMessage(message);
@@ -85,10 +85,10 @@ public class WebSocketServer {
 
 	@OnError
 	public void onError(Session session, Throwable error) {
-		log.error("发生错误", error);
+		log.error("An error occurred", error);
 	}
 	/**
-	 * 实现服务器主动推送
+	 * Implement server-initiated push
 	 */
 	private void sendMessage(String message) throws IOException {
 		this.session.getBasicRemote().sendText(message);
@@ -96,14 +96,14 @@ public class WebSocketServer {
 
 
 	/**
-	 * 群发自定义消息
+	 * Broadcast a custom message
 	 * */
 	public static void sendInfo(SocketMsg socketMsg,@PathParam("sid") String sid) throws IOException {
 		String message = JSON.toJSONString(socketMsg);
-		log.info("推送消息到"+sid+"，推送内容:"+message);
+		log.info("Push message to"+sid+", push content:"+message);
 		for (WebSocketServer item : webSocketSet) {
 			try {
-				//这里可以设定只推送给这个sid的，为null则全部推送
+				//Here you can push only to this sid; if null, push to all
 				if(sid==null) {
 					item.sendMessage(message);
 				}else if(item.sid.equals(sid)){

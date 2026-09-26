@@ -24,28 +24,28 @@ import java.util.List;
 public interface BaseMapper<D, E> {
 
     /**
-     * DTO转Entity
+     * DTO Convert Entity
      * @param dto /
      * @return /
      */
     E toEntity(D dto);
 
     /**
-     * Entity转DTO
+     * Entity Convert DTO
      * @param entity /
      * @return /
      */
     D toDto(E entity);
 
     /**
-     * DTO集合转Entity集合
+     * DTO Convert a collection to an Entity collection
      * @param dtoList /
      * @return /
      */
     List <E> toEntity(List<D> dtoList);
 
     /**
-     * Entity集合转DTO集合
+     * Entity Convert a collection to a DTO collection
      * @param entityList /
      * @return /
      */

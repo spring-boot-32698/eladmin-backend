@@ -30,23 +30,23 @@ import java.util.List;
 @DataPermission(fieldName = "id")
 public class DeptQueryCriteria{
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "Name")
     @Query(type = Query.Type.INNER_LIKE)
     private String name;
 
     @Query
-    @ApiModelProperty(value = "是否启用")
+    @ApiModelProperty(value = "Enabled")
     private Boolean enabled;
 
     @Query
-    @ApiModelProperty(value = "上级部门")
+    @ApiModelProperty(value = "Parent department")
     private Long pid;
 
-    @ApiModelProperty(value = "PID空查询", hidden = true)
+    @ApiModelProperty(value = "PID Empty query", hidden = true)
     @Query(type = Query.Type.IS_NULL, propName = "pid")
     private Boolean pidIsNull;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

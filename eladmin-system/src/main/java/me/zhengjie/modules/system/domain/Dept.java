@@ -46,24 +46,24 @@ public class Dept extends BaseEntity implements Serializable {
 
     @JSONField(serialize = false)
     @ManyToMany(mappedBy = "depts")
-    @ApiModelProperty(value = "角色")
+    @ApiModelProperty(value = "Role")
     private Set<Role> roles;
 
-    @ApiModelProperty(value = "排序")
+    @ApiModelProperty(value = "Sort")
     private Integer deptSort;
 
     @NotBlank
-    @ApiModelProperty(value = "部门名称")
+    @ApiModelProperty(value = "Department name")
     private String name;
 
     @NotNull
-    @ApiModelProperty(value = "是否启用")
+    @ApiModelProperty(value = "Enabled")
     private Boolean enabled;
 
-    @ApiModelProperty(value = "上级部门")
+    @ApiModelProperty(value = "Parent department")
     private Long pid;
 
-    @ApiModelProperty(value = "子节点数目", hidden = true)
+    @ApiModelProperty(value = "Number of child nodes", hidden = true)
     private Integer subCount = 0;
 
     @Override

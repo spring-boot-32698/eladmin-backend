@@ -17,7 +17,7 @@ import java.util.List;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 /**
- * 将Pageable转换展示在swagger中
+ * Convert Pageable for display in swagger
  */
 @Configuration
 public class SwaggerDataConfig {
@@ -40,13 +40,13 @@ public class SwaggerDataConfig {
     @ApiModel
     @Data
     private static class Page {
-        @ApiModelProperty("页码 (0..N)")
+        @ApiModelProperty("Page number (0..N)")
         private Integer page;
 
-        @ApiModelProperty("每页显示的数目")
+        @ApiModelProperty("Items shown per page")
         private Integer size;
 
-        @ApiModelProperty("以下列格式排序标准：property[,asc | desc]。 默认排序顺序为升序。 支持多种排序条件：如：id,asc")
+        @ApiModelProperty("Sort criteria in the following format:property[,asc | desc]. The default sort order is ascending. Multiple sort conditions are supported, e.g.:id,asc")
         private List<String> sort;
     }
 }

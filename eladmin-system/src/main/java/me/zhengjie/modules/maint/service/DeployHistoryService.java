@@ -32,41 +32,41 @@ import java.util.Set;
 public interface DeployHistoryService {
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<DeployHistoryDto> queryAll(DeployHistoryQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部
-     * @param criteria 条件
+     * Query all
+     * @param criteria Condition
      * @return /
      */
     List<DeployHistoryDto> queryAll(DeployHistoryQueryCriteria criteria);
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     DeployHistoryDto findById(String id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(DeployHistory resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<String> ids);
 
     /**
-     * 导出数据
+     * Export data
      * @param queryAll /
      * @param response /
      * @throws IOException /

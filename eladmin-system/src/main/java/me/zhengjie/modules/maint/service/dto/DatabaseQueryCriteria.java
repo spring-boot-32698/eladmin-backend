@@ -28,15 +28,15 @@ import java.util.List;
 @Data
 public class DatabaseQueryCriteria{
 
-	@ApiModelProperty(value = "模糊")
+	@ApiModelProperty(value = "Fuzzy")
     @Query(type = Query.Type.INNER_LIKE)
     private String name;
 
     @Query
-	@ApiModelProperty(value = "数据库连接地址")
+	@ApiModelProperty(value = "Database connection URL")
     private String jdbcUrl;
 
-	@ApiModelProperty(value = "创建时间")
+	@ApiModelProperty(value = "Created at")
 	@Query(type = Query.Type.BETWEEN)
 	private List<Timestamp> createTime;
 }

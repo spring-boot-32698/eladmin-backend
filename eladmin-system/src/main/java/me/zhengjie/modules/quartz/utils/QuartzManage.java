@@ -40,11 +40,11 @@ public class QuartzManage {
 
     public void addJob(QuartzJob quartzJob){
         try {
-            // 构建job信息
+            // Build job info
             JobDetail jobDetail = JobBuilder.newJob(ExecutionJob.class).
                     withIdentity(JOB_NAME + quartzJob.getId()).build();
 
-            //通过触发器名和cron 表达式创建 Trigger
+            //Create by trigger name and cron expression Trigger
             Trigger cronTrigger = newTrigger()
                     .withIdentity(JOB_NAME + quartzJob.getId())
                     .startNow()
@@ -53,59 +53,59 @@ public class QuartzManage {
 
             cronTrigger.getJobDataMap().put(QuartzJob.JOB_KEY, quartzJob);
 
-            //重置启动时间
+            //Reset start time
             ((CronTriggerImpl)cronTrigger).setStartTime(new Date());
 
-            //执行定时任务，如果是持久化的，这里会报错，捕获输出
+            //Execute the scheduled task; if it is persistent, an error occurs here, capture the output
             try {
                 scheduler.scheduleJob(jobDetail,cronTrigger);
             } catch (ObjectAlreadyExistsException e) {
-                log.warn("定时任务已存在，跳过加载");
+                log.warn("Scheduled task already exists, skipping load");
             }
 
-            // 暂停任务
+            // Pause task
             if (quartzJob.getIsPause()) {
                 pauseJob(quartzJob);
             }
         } catch (Exception e){
-            log.error("创建定时任务失败", e);
-            throw new BadRequestException("创建定时任务失败");
+            log.error("Failed to create scheduled task", e);
+            throw new BadRequestException("Failed to create scheduled task");
         }
     }
 
     /**
-     * 更新job cron表达式
+     * Update the job cron expression
      * @param quartzJob /
      */
     public void updateJobCron(QuartzJob quartzJob){
         try {
             TriggerKey triggerKey = TriggerKey.triggerKey(JOB_NAME + quartzJob.getId());
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-            // 如果不存在则创建一个定时任务
+            // Create a scheduled task if it does not exist
             if(trigger == null){
                 addJob(quartzJob);
                 trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
             }
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(quartzJob.getCronExpression());
             trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
-            //重置启动时间
+            //Reset start time
             ((CronTriggerImpl)trigger).setStartTime(new Date());
             trigger.getJobDataMap().put(QuartzJob.JOB_KEY,quartzJob);
 
             scheduler.rescheduleJob(triggerKey, trigger);
-            // 暂停任务
+            // Pause task
             if (quartzJob.getIsPause()) {
                 pauseJob(quartzJob);
             }
         } catch (Exception e){
-            log.error("更新定时任务失败", e);
-            throw new BadRequestException("更新定时任务失败");
+            log.error("Failed to update scheduled task", e);
+            throw new BadRequestException("Failed to update scheduled task");
         }
 
     }
 
     /**
-     * 删除一个job
+     * Delete one job
      * @param quartzJob /
      */
     public void deleteJob(QuartzJob quartzJob){
@@ -114,40 +114,40 @@ public class QuartzManage {
             scheduler.pauseJob(jobKey);
             scheduler.deleteJob(jobKey);
         } catch (Exception e){
-            log.error("删除定时任务失败", e);
-            throw new BadRequestException("删除定时任务失败");
+            log.error("Failed to delete scheduled task", e);
+            throw new BadRequestException("Failed to delete scheduled task");
         }
     }
 
     /**
-     * 恢复一个job
+     * Resume one job
      * @param quartzJob /
      */
     public void resumeJob(QuartzJob quartzJob){
         try {
             TriggerKey triggerKey = TriggerKey.triggerKey(JOB_NAME + quartzJob.getId());
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-            // 如果不存在则创建一个定时任务
+            // Create a scheduled task if it does not exist
             if(trigger == null) {
                 addJob(quartzJob);
             }
             JobKey jobKey = JobKey.jobKey(JOB_NAME + quartzJob.getId());
             scheduler.resumeJob(jobKey);
         } catch (Exception e){
-            log.error("恢复定时任务失败", e);
-            throw new BadRequestException("恢复定时任务失败");
+            log.error("Failed to resume scheduled task", e);
+            throw new BadRequestException("Failed to resume scheduled task");
         }
     }
 
     /**
-     * 立即执行job
+     * Execute now job
      * @param quartzJob /
      */
     public void runJobNow(QuartzJob quartzJob){
         try {
             TriggerKey triggerKey = TriggerKey.triggerKey(JOB_NAME + quartzJob.getId());
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-            // 如果不存在则创建一个定时任务
+            // Create a scheduled task if it does not exist
             if(trigger == null) {
                 addJob(quartzJob);
             }
@@ -156,13 +156,13 @@ public class QuartzManage {
             JobKey jobKey = JobKey.jobKey(JOB_NAME + quartzJob.getId());
             scheduler.triggerJob(jobKey,dataMap);
         } catch (Exception e){
-            log.error("定时任务执行失败", e);
-            throw new BadRequestException("定时任务执行失败");
+            log.error("Scheduled task execution failed", e);
+            throw new BadRequestException("Scheduled task execution failed");
         }
     }
 
     /**
-     * 暂停一个job
+     * Pause one job
      * @param quartzJob /
      */
     public void pauseJob(QuartzJob quartzJob){
@@ -170,8 +170,8 @@ public class QuartzManage {
             JobKey jobKey = JobKey.jobKey(JOB_NAME + quartzJob.getId());
             scheduler.pauseJob(jobKey);
         } catch (Exception e){
-            log.error("定时任务暂停失败", e);
-            throw new BadRequestException("定时任务暂停失败");
+            log.error("Failed to pause scheduled task", e);
+            throw new BadRequestException("Failed to pause scheduled task");
         }
     }
 }

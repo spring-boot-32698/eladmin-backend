@@ -36,7 +36,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * File工具类，扩展 hutool 工具包
+ * File Utility class extending the hutool toolkit
  *
  * @author Zheng Jie
  * @date 2018-12-27
@@ -45,11 +45,11 @@ import java.util.stream.Collectors;
 public class FileUtil extends cn.hutool.core.io.FileUtil {
 
     /**
-     * 系统临时目录
+     * System temp directory
      * <br>
-     * windows 包含路径分割符，但Linux 不包含,
-     * 在windows \\==\ 前提下，
-     * 为安全起见 同意拼装 路径分割符，
+     * windows Contains the path separator, but Linux does not,
+     * in windows \\==\ on the premise that,
+     * For safety, uniformly assemble the path separator,
      * <pre>
      *       java.io.tmpdir
      *       windows : C:\Users/xxx\AppData\Local\Temp\
@@ -58,41 +58,41 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
      */
     public static final String SYS_TEM_DIR = System.getProperty("java.io.tmpdir") + File.separator;
     /**
-     * 定义GB的计算常量
+     * Define the GB calculation constant
      */
     private static final int GB = 1024 * 1024 * 1024;
     /**
-     * 定义MB的计算常量
+     * Define the MB calculation constant
      */
     private static final int MB = 1024 * 1024;
     /**
-     * 定义KB的计算常量
+     * Define the KB calculation constant
      */
     private static final int KB = 1024;
 
     /**
-     * 格式化小数
+     * Format decimals
      */
     private static final DecimalFormat DF = new DecimalFormat("0.00");
 
-    public static final String IMAGE = "图片";
-    public static final String TXT = "文档";
-    public static final String MUSIC = "音乐";
-    public static final String VIDEO = "视频";
-    public static final String OTHER = "其他";
+    public static final String IMAGE = "Image";
+    public static final String TXT = "Docs";
+    public static final String MUSIC = "Music";
+    public static final String VIDEO = "Video";
+    public static final String OTHER = "Other";
 
 
     /**
-     * MultipartFile转File
+     * MultipartFile Convert File
      */
     public static File toFile(MultipartFile multipartFile) {
-        // 获取文件名
+        // Get file name
         String fileName = multipartFile.getOriginalFilename();
-        // 获取文件后缀
+        // Get file suffix
         String prefix = "." + getExtensionName(fileName);
         File file = null;
         try {
-            // 用uuid作为文件名，防止生成的临时文件重复
+            // Use a uuid as the file name to prevent duplicate temp files
             file = new File(SYS_TEM_DIR + IdUtil.simpleUUID() + prefix);
             // MultipartFile to File
             multipartFile.transferTo(file);
@@ -103,7 +103,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 获取文件扩展名，不带 .
+     * Get the file extension, without .
      */
     public static String getExtensionName(String filename) {
         if ((filename != null) && (!filename.isEmpty())) {
@@ -116,7 +116,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * Java文件操作 获取不带扩展名的文件名
+     * Java File operation: get the file name without extension
      */
     public static String getFileNameNoEx(String filename) {
         if ((filename != null) && (!filename.isEmpty())) {
@@ -129,18 +129,18 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 文件大小转换
+     * File size conversion
      */
     public static String getSize(long size) {
         String resultSize;
         if (size / GB >= 1) {
-            //如果当前Byte的值大于等于1GB
+            //If the current Byte value is greater than or equal to 1GB
             resultSize = DF.format(size / (float) GB) + "GB";
         } else if (size / MB >= 1) {
-            //如果当前Byte的值大于等于1MB
+            //If the current Byte value is greater than or equal to 1MB
             resultSize = DF.format(size / (float) MB) + "MB";
         } else if (size / KB >= 1) {
-            //如果当前Byte的值大于等于1KB
+            //If the current Byte value is greater than or equal to 1KB
             resultSize = DF.format(size / (float) KB) + "KB";
         } else {
             resultSize = size + "B";
@@ -149,7 +149,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * inputStream 转 File
+     * inputStream Convert File
      */
     static File inputStreamToFile(InputStream ins, String name){
         File file = new File(SYS_TEM_DIR + name);
@@ -175,27 +175,27 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 将文件名解析成文件的上传路径
+     * Parse the file name into the file's upload path
      */
     public static File upload(MultipartFile file, String filePath) {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmssS");
-        // 过滤非法文件名
+        // Filter illegal file names
         String name = getFileNameNoEx(verifyFilename(file.getOriginalFilename()));
         String suffix = getExtensionName(file.getOriginalFilename());
         String nowStr = "-" + format.format(date);
         try {
             String fileName = name + nowStr + "." + suffix;
             String path = filePath + fileName;
-            // getCanonicalFile 可解析正确各种路径
+            // getCanonicalFile Can correctly parse various paths
             File dest = new File(path).getCanonicalFile();
-            // 检测是否存在目录
+            // Check whether the directory exists
             if (!dest.getParentFile().exists()) {
                 if (!dest.getParentFile().mkdirs()) {
                     System.out.println("was not successful.");
                 }
             }
-            // 文件写入
+            // File write
             file.transferTo(dest);
             return dest;
         } catch (Exception e) {
@@ -205,14 +205,14 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 防止 CSV/XLSX 注入（CWE-1236）
+     * Prevent CSV/XLSX injection (CWE-1236)
      * <p>
-     * 当单元格值以 {@code = + - @ \t \r} 开头时，电子表格软件可能将其解释为公式。
-     * 本方法在这类值前添加单引号前缀，并转义值中已有的单引号，防止公式注入攻击。
+     * When a cell value starts with {@code = + - @ \t \r} at the start, spreadsheet software may interpret it as a formula.
+     * This method prepends a single quote to such values and escapes existing single quotes in the value to prevent formula injection attacks.
      * </p>
      *
-     * @param value 原始单元格值
-     * @return 经过安全处理的单元格值
+     * @param value Original cell value
+     * @return Sanitized cell value
      * @see <a href="https://owasp.org/www-community/attacks/CSV_Injection">OWASP CSV Injection</a>
      */
     public static String sanitizeCellValue(String value) {
@@ -222,20 +222,20 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         char first = value.charAt(0);
         if (first == '=' || first == '+' || first == '-' || first == '@'
                 || first == '\t' || first == '\r') {
-            // 转义值中已有的单引号，防止攻击者利用单引号逃逸
+            // Escape existing single quotes in the value so attackers cannot use them to break out
             return "'" + value.replace("'", "''");
         }
         return value;
     }
 
     /**
-     * 导出excel
+     * Export excel
      */
     public static void downloadExcel(List<Map<String, Object>> list, HttpServletResponse response) throws IOException {
         String tempPath = SYS_TEM_DIR + IdUtil.fastSimpleUUID() + ".xlsx";
         File file = new File(tempPath);
         BigExcelWriter writer = ExcelUtil.getBigWriter(file);
-        // 处理数据以防止CSV/XLSX注入（CWE-1236）
+        // Process data to prevent CSV/XLSX injection (CWE-1236)
         List<Map<String, Object>> sanitizedList = list.stream().map(map -> {
             Map<String, Object> sanitizedMap = new LinkedHashMap<>();
             map.forEach((key, value) -> {
@@ -247,22 +247,22 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             });
             return sanitizedMap;
         }).collect(Collectors.toList());
-        // 一次性写出内容，使用默认样式，强制输出标题
+        // Write the content in one go, use the default style, force the title output
         writer.write(sanitizedList, true);
         SXSSFSheet sheet = (SXSSFSheet)writer.getSheet();
-        //上面需要强转SXSSFSheet  不然没有trackAllColumnsForAutoSizing方法
+        //The above needs a cast to SXSSFSheet, otherwise there is no trackAllColumnsForAutoSizing method
         sheet.trackAllColumnsForAutoSizing();
-        //列宽自适应
+        //Auto-fit column width
         writer.autoSizeColumnAll();
-        //response为HttpServletResponse对象
+        //response is the HttpServletResponse object
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
-        //test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
+        //test.xls is the file name shown in the download dialog; it cannot be Chinese, encode it yourself if needed
         response.setHeader("Content-Disposition", "attachment;filename=file.xlsx");
         ServletOutputStream out = response.getOutputStream();
-        // 终止后删除临时文件
+        // Delete temp files after termination
         file.deleteOnExit();
         writer.flush(out, true);
-        //此处记得关闭输出Servlet流
+        //Remember to close the output Servlet stream here
         IoUtil.close(out);
     }
 
@@ -288,12 +288,12 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         // 1M
         int len = 1024 * 1024;
         if (size > (maxSize * len)) {
-            throw new BadRequestException("文件超出规定大小:" + maxSize + "MB");
+            throw new BadRequestException("File exceeds the allowed size:" + maxSize + "MB");
         }
     }
 
     /**
-     * 判断两个文件是否相同
+     * Check whether two files are the same
      */
     public static boolean check(File file1, File file2) {
         String img1Md5 = getMd5(file1);
@@ -305,14 +305,14 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 判断两个文件是否相同
+     * Check whether two files are the same
      */
     public static boolean check(String file1Md5, String file2Md5) {
         return file1Md5.equals(file2Md5);
     }
 
     private static byte[] getByte(File file) {
-        // 得到文件长度
+        // Get file length
         byte[] b = new byte[(int) file.length()];
         InputStream in = null;
         try {
@@ -332,7 +332,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     private static String getMd5(byte[] bytes) {
-        // 16进制字符
+        // 16-base characters
         char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         try {
             MessageDigest mdTemp = MessageDigest.getInstance("MD5");
@@ -341,7 +341,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             int j = md.length;
             char[] str = new char[j * 2];
             int k = 0;
-            // 移位 输出字符串
+            // Shift and output the string
             for (byte byte0 : md) {
                 str[k++] = hexDigits[byte0 >>> 4 & 0xf];
                 str[k++] = hexDigits[byte0 & 0xf];
@@ -354,7 +354,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 下载文件
+     * Download file
      *
      * @param request  /
      * @param response /
@@ -386,18 +386,18 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 验证并过滤非法的文件名
-     * @param fileName 文件名
-     * @return 文件名
+     * Validate and filter illegal file names
+     * @param fileName File name
+     * @return File name
      */
     public static String verifyFilename(String fileName) {
-        // 过滤掉特殊字符
+        // Filter out special characters
         fileName = fileName.replaceAll("[\\\\/:*?\"<>|~\\s]", "");
 
-        // 去掉文件名开头和结尾的空格和点
+        // Remove spaces and dots at the start and end of the file name
         fileName = fileName.trim().replaceAll("^[. ]+|[. ]+$", "");
 
-        // 不允许文件名超过255（在Mac和Linux中）或260（在Windows中）个字符
+        // File names longer than 255 (on Mac and Linux) or 260 (on Windows) characters are not allowed
         int maxFileNameLength = 255;
         if (System.getProperty("os.name").startsWith("Windows")) {
             maxFileNameLength = 260;
@@ -406,16 +406,16 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             fileName = fileName.substring(0, maxFileNameLength);
         }
 
-        // 过滤掉控制字符
+        // Filter out control characters
         fileName = fileName.replaceAll("[\\p{Cntrl}]", "");
 
-        // 过滤掉 ".." 路径
+        // Filter out ".." Path
         fileName = fileName.replaceAll("\\.{2,}", "");
 
-        // 去掉文件名开头的 ".."
+        // Remove the leading part of the file name ".."
         fileName = fileName.replaceAll("^\\.+/", "");
 
-        // 保留文件名中最后一个 "." 字符，过滤掉其他 "."
+        // Keep the last one in the file name "." characters, filter out others "."
         fileName = fileName.replaceAll("^(.*)(\\.[^.]*)$", "$1").replaceAll("\\.", "") +
                 fileName.replaceAll("^(.*)(\\.[^.]*)$", "$2");
 

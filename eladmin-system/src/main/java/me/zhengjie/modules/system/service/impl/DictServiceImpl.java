@@ -67,7 +67,7 @@ public class DictServiceImpl implements DictService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(Dict resources) {
-        // 清理缓存
+        // Clear cache
         delCaches(resources);
         Dict dict = dictRepository.findById(resources.getId()).orElseGet(Dict::new);
         ValidationUtil.isNull( dict.getId(),"Dict","id",resources.getId());
@@ -79,7 +79,7 @@ public class DictServiceImpl implements DictService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Long> ids) {
-        // 清理缓存
+        // Clear cache
         List<Dict> dicts = dictRepository.findByIdIn(ids);
         for (Dict dict : dicts) {
             delCaches(dict);
@@ -94,20 +94,20 @@ public class DictServiceImpl implements DictService {
             if(CollectionUtil.isNotEmpty(dictDTO.getDictDetails())){
                 for (DictDetailDto dictDetail : dictDTO.getDictDetails()) {
                     Map<String,Object> map = new LinkedHashMap<>();
-                    map.put("字典名称", dictDTO.getName());
-                    map.put("字典描述", dictDTO.getDescription());
-                    map.put("字典标签", dictDetail.getLabel());
-                    map.put("字典值", dictDetail.getValue());
-                    map.put("创建日期", dictDetail.getCreateTime());
+                    map.put("Dictionary name", dictDTO.getName());
+                    map.put("Dictionary description", dictDTO.getDescription());
+                    map.put("Dictionary label", dictDetail.getLabel());
+                    map.put("Dictionary value", dictDetail.getValue());
+                    map.put("Created at", dictDetail.getCreateTime());
                     list.add(map);
                 }
             } else {
                 Map<String,Object> map = new LinkedHashMap<>();
-                map.put("字典名称", dictDTO.getName());
-                map.put("字典描述", dictDTO.getDescription());
-                map.put("字典标签", null);
-                map.put("字典值", null);
-                map.put("创建日期", dictDTO.getCreateTime());
+                map.put("Dictionary name", dictDTO.getName());
+                map.put("Dictionary description", dictDTO.getDescription());
+                map.put("Dictionary label", null);
+                map.put("Dictionary value", null);
+                map.put("Created at", dictDTO.getCreateTime());
                 list.add(map);
             }
         }

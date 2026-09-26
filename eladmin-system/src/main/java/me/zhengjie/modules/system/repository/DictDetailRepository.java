@@ -28,7 +28,7 @@ import java.util.List;
 public interface DictDetailRepository extends JpaRepository<DictDetail, Long>, JpaSpecificationExecutor<DictDetail> {
 
     /**
-     * 根据字典名称查询
+     * Query by dictionary name
      * @param name /
      * @return /
      */

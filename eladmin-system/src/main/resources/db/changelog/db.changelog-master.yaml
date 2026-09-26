@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-eladmin-schema-and-data
+      author: eladmin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: sys_user
+      changes:
+        - sqlFile:
+            path: sql/eladmin.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+            endDelimiter: ;
+  - changeSet:
+      id: 002-quartz-schema
+      author: eladmin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: qrtz_job_details
+      changes:
+        - sqlFile:
+            path: sql/quartz.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+            endDelimiter: ;

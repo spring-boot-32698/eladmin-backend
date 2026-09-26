@@ -38,7 +38,7 @@ public class JobRunner implements ApplicationRunner {
     private final QuartzManage quartzManage;
 
     /**
-     * 项目启动时重新激活启用的定时任务
+     * Reactivate the enabled scheduled tasks when the project starts
      *
      * @param applicationArguments /
      */

@@ -26,7 +26,7 @@ import org.springframework.scheduling.quartz.AdaptableJobFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 定时任务配置
+ * Scheduled task config
  * @author /
  * @date 2019-01-07
  */
@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
 public class QuartzConfig {
 
 	/**
-	 * 解决Job中注入Spring Bean为null的问题
+	 * Fix the problem of injected Spring Beans being null in a Job
 	 */
 	@Component("quartzJobFactory")
 	public static class QuartzJobFactory extends AdaptableJobFactory {
@@ -52,7 +52,7 @@ public class QuartzConfig {
 		@Override
 		protected Object createJobInstance(@NonNull TriggerFiredBundle bundle) throws Exception {
 			try {
-				// 调用父类的方法，把Job注入到spring中
+				// Call the parent class method to inject the Job into Spring
 				Object jobInstance = super.createJobInstance(bundle);
 				capableBeanFactory.autowireBean(jobInstance);
 				log.debug("Job instance created and autowired: {}", jobInstance.getClass().getName());

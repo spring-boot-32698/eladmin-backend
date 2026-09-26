@@ -24,7 +24,7 @@ import me.zhengjie.domain.vo.EmailVo;
 public interface VerifyService {
 
     /**
-     * 发送验证码
+     * Send verification code
      * @param email /
      * @param key /
      * @return /
@@ -33,7 +33,7 @@ public interface VerifyService {
 
 
     /**
-     * 验证
+     * Validate
      * @param code /
      * @param key /
      */

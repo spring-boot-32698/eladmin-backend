@@ -18,49 +18,49 @@ package me.zhengjie.utils;
 /**
  * @author liaojinlong
  * @date 2020/6/11 15:49
- * @description 关于缓存的Key集合
+ * @description Key set for the cache
  */
 public interface CacheKey {
 
     /**
-     * 用户
+     * User
      */
     String USER_ID = "user::id:";
 
     /**
-     * 数据
+     * Data
      */
     String DATA_USER = "data::user:";
 
     /**
-     * 菜单
+     * Menu
      */
     String MENU_ID = "menu::id:";
     String MENU_USER = "menu::user:";
 
     /**
-     * 角色授权
+     * Role authorization
      */
     String ROLE_AUTH = "role::auth:";
     String ROLE_USER = "role::user:";
 
     /**
-     * 角色信息
+     * Role info
      */
     String ROLE_ID = "role::id:";
 
     /**
-     * 部门
+     * Department
      */
     String DEPT_ID = "dept::id:";
 
     /**
-     * 岗位
+     * Job
      */
     String JOB_ID = "job::id:";
 
     /**
-     * 数据字典
+     * Data Dictionary
      */
     String DICT_NAME = "dict::name:";
 }

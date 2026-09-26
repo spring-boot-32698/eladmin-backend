@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页结果封装类
+ * Pagination result wrapper class
  * @author Zheng Jie
  * @date 2018-11-23
  * @param <T>

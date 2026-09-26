@@ -29,11 +29,11 @@ import me.zhengjie.annotation.Query;
 @Data
 public class LocalStorageQueryCriteria{
 
-    @ApiModelProperty(value = "模糊查询")
+    @ApiModelProperty(value = "Fuzzy query")
     @Query(blurry = "name,suffix,type,createBy,size")
     private String blurry;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

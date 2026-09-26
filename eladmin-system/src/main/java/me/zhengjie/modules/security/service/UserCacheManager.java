@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 
 /**
  * @author Zheng Jie
- * @description 用户缓存管理
+ * @description User cache management
  * @date 2022-05-26
  **/
 @Component
@@ -39,46 +39,46 @@ public class UserCacheManager {
     private long idleTime;
 
     /**
-     * 返回用户缓存
-     * @param userName 用户名
+     * Return user cache
+     * @param userName Username
      * @return JwtUserDto
      */
     public JwtUserDto getUserCache(String userName) {
-        // 转小写
+        // Convert to lowercase
         userName = StringUtils.lowerCase(userName);
         if (StringUtils.isNotEmpty(userName)) {
-            // 获取数据
+            // Get data
             return redisUtils.get(LoginProperties.cacheKey + userName, JwtUserDto.class);
         }
         return null;
     }
 
     /**
-     *  添加缓存到Redis
-     * @param userName 用户名
+     *  Add cache to Redis
+     * @param userName Username
      */
     @Async
     public void addUserCache(String userName, JwtUserDto user) {
-        // 转小写
+        // Convert to lowercase
         userName = StringUtils.lowerCase(userName);
         if (StringUtils.isNotEmpty(userName)) {
-            // 添加数据, 避免数据同时过期
+            // Add data, Avoid data expiring at the same time
             long time = idleTime + RandomUtil.randomInt(900, 1800);
             redisUtils.set(LoginProperties.cacheKey + userName, user, time);
         }
     }
 
     /**
-     * 清理用户缓存信息
-     * 用户信息变更时
-     * @param userName 用户名
+     * Clear user cache info
+     * When user info changes
+     * @param userName Username
      */
     @Async
     public void cleanUserCache(String userName) {
-        // 转小写
+        // Convert to lowercase
         userName = StringUtils.lowerCase(userName);
         if (StringUtils.isNotEmpty(userName)) {
-            // 清除数据
+            // Clear data
             redisUtils.del(LoginProperties.cacheKey + userName);
         }
     }

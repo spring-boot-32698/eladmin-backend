@@ -35,13 +35,13 @@ public class JobDto extends BaseDTO implements Serializable {
     @ApiModelProperty(value = "ID")
     private Long id;
 
-    @ApiModelProperty(value = "岗位排序")
+    @ApiModelProperty(value = "Job order")
     private Integer jobSort;
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "Name")
     private String name;
 
-    @ApiModelProperty(value = "是否启用")
+    @ApiModelProperty(value = "Enabled")
     private Boolean enabled;
 
     public JobDto(String name, Boolean enabled) {

@@ -43,43 +43,43 @@ public class QuartzJob extends BaseEntity implements Serializable {
     private Long id;
 
     @Transient
-    @ApiModelProperty(value = "用于子任务唯一标识", hidden = true)
+    @ApiModelProperty(value = "Used as the unique identifier of sub-tasks", hidden = true)
     private String uuid;
 
-    @ApiModelProperty(value = "定时器名称")
+    @ApiModelProperty(value = "Timer name")
     private String jobName;
 
     @NotBlank
-    @ApiModelProperty(value = "Bean名称")
+    @ApiModelProperty(value = "Bean Name")
     private String beanName;
 
     @NotBlank
-    @ApiModelProperty(value = "方法名称")
+    @ApiModelProperty(value = "Method name")
     private String methodName;
 
-    @ApiModelProperty(value = "参数")
+    @ApiModelProperty(value = "Parameter")
     private String params;
 
     @NotBlank
-    @ApiModelProperty(value = "cron表达式")
+    @ApiModelProperty(value = "cron Expression")
     private String cronExpression;
 
-    @ApiModelProperty(value = "状态，暂时或启动")
+    @ApiModelProperty(value = "Status: paused or started")
     private Boolean isPause = false;
 
-    @ApiModelProperty(value = "负责人")
+    @ApiModelProperty(value = "Owner")
     private String personInCharge;
 
-    @ApiModelProperty(value = "报警邮箱")
+    @ApiModelProperty(value = "Alarm email")
     private String email;
 
-    @ApiModelProperty(value = "子任务")
+    @ApiModelProperty(value = "Sub-task")
     private String subTask;
 
-    @ApiModelProperty(value = "失败后暂停")
+    @ApiModelProperty(value = "Pause after failure")
     private Boolean pauseAfterFailure;
 
     @NotBlank
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty(value = "Remarks")
     private String description;
 }

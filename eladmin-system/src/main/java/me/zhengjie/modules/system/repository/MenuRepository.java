@@ -31,36 +31,36 @@ import java.util.Set;
 public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificationExecutor<Menu> {
 
     /**
-     * 根据菜单标题查询
-     * @param title 菜单标题
+     * Query by menu title
+     * @param title Menu title
      * @return /
      */
     Menu findByTitle(String title);
 
     /**
-     * 根据组件名称查询
-     * @param name 组件名称
+     * Query by component name
+     * @param name Component name
      * @return /
      */
     Menu findByComponentName(String name);
 
     /**
-     * 根据菜单的 PID 查询
+     * Query by the menu's PID
      * @param pid /
      * @return /
      */
     List<Menu> findByPidOrderByMenuSort(long pid);
 
     /**
-     * 查询顶级菜单
+     * Query top-level menus
      * @return /
      */
     List<Menu> findByPidIsNullOrderByMenuSort();
 
     /**
-     * 根据角色ID与菜单类型查询菜单
+     * Query menus by role ID and menu type
      * @param roleIds roleIDs
-     * @param type 类型
+     * @param type Type
      * @return /
      */
     @Query(value = "SELECT m.* FROM sys_menu m, sys_roles_menus r WHERE " +
@@ -68,14 +68,14 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificat
     LinkedHashSet<Menu> findByRoleIdsAndTypeNot(Set<Long> roleIds, int type);
 
     /**
-     * 获取节点数量
+     * Get node count
      * @param id /
      * @return /
      */
     int countByPid(Long id);
 
     /**
-     * 更新节点数目
+     * Update node count
      * @param count /
      * @param menuId /
      */

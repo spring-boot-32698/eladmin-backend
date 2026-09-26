@@ -8,16 +8,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>eladmin-system</artifactId>
-    <name>核心模块</name>
+    <name>Core module</name>
 
     <properties>
         <jjwt.version>0.11.5</jjwt.version>
-        <!-- oshi监控需要指定jna版本, 问题详见 https://github.com/oshi/oshi/issues/1040 -->
+        <!-- oshi Monitoring requires specifying the jna version, See the issue for details: https://github.com/oshi/oshi/issues/1040 -->
         <jna.version>5.8.0</jna.version>
     </properties>
 
     <dependencies>
-        <!-- 代码生成模块 -->
+        <!-- Code generation module -->
         <dependency>
             <groupId>me.zhengjie</groupId>
             <artifactId>eladmin-generator</artifactId>
@@ -30,7 +30,7 @@
             </exclusions>
         </dependency>
 
-        <!-- tools 模块包含了 common 和 logging 模块 -->
+        <!-- tools This module includes the common and logging modules -->
         <dependency>
             <groupId>me.zhengjie</groupId>
             <artifactId>eladmin-tools</artifactId>
@@ -41,6 +41,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+        <!-- liquibase: database schema and seed data migrations -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
         </dependency>
 
         <!-- jwt -->
@@ -60,7 +66,7 @@
             <version>${jjwt.version}</version>
         </dependency>
 
-        <!-- linux的管理 -->
+        <!-- linux management -->
         <dependency>
             <groupId>ch.ethz.ganymed</groupId>
             <artifactId>ganymed-ssh2</artifactId>
@@ -72,7 +78,7 @@
             <version>0.1.55</version>
         </dependency>
 
-        <!-- 获取系统信息 -->
+        <!-- Get system info -->
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
@@ -80,14 +86,14 @@
         </dependency>
     </dependencies>
 
-    <!-- 打包 -->
+    <!-- Package -->
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!-- 跳过单元测试 -->
+            <!-- Skip unit tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

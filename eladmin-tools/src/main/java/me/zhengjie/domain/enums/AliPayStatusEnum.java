@@ -16,22 +16,22 @@
 package me.zhengjie.domain.enums;
 
 /**
- * 支付状态
+ * Payment status
  * @author zhengjie
  * @date 2018/08/01 16:45:43
  */
 public enum  AliPayStatusEnum {
 
-    /** 交易成功 */
+    /** Trade succeeded */
     FINISHED("TRADE_FINISHED"),
 
-    /** 支付成功 */
+    /** Payment succeeded */
     SUCCESS("TRADE_SUCCESS"),
 
-    /** 交易创建 */
+    /** Trade created */
     BUYER_PAY("WAIT_BUYER_PAY"),
 
-    /** 交易关闭 */
+    /** Trade closed */
     CLOSED("TRADE_CLOSED");
 
     private final String value;

@@ -46,7 +46,7 @@ public class TokenFilter extends GenericFilterBean {
     /**
      * @param tokenProvider     Token
      * @param properties        JWT
-     * @param onlineUserService 用户在线
+     * @param onlineUserService User online
      */
     public TokenFilter(TokenProvider tokenProvider, SecurityProperties properties, OnlineUserService onlineUserService) {
         this.properties = properties;
@@ -59,16 +59,16 @@ public class TokenFilter extends GenericFilterBean {
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String token = resolveToken(httpServletRequest);
-        // 对于 Token 为空的不需要去查 Redis
+        // No lookup is needed when the token is empty Redis
         if(StrUtil.isNotBlank(token)){
-            // 获取用户Token的Key
+            // Get the user's Token Key
             String loginKey = tokenProvider.loginKey(token);
             OnlineUserDto onlineUserDto = onlineUserService.getOne(loginKey);
-            // 判断用户在线信息是否为空
+            // Check whether the user's online info is empty
             if (onlineUserDto != null) {
-                // Token 续期判断
+                // Token Renewal check
                 tokenProvider.checkRenewal(token);
-                // 获取认证信息，设置上下文
+                // Get authentication info and set the context
                 Authentication authentication = tokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -77,7 +77,7 @@ public class TokenFilter extends GenericFilterBean {
     }
 
     /**
-     * 初步检测Token
+     * Preliminary check Token
      *
      * @param request /
      * @return /
@@ -85,10 +85,10 @@ public class TokenFilter extends GenericFilterBean {
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(properties.getHeader());
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(properties.getTokenStartWith())) {
-            // 去掉令牌前缀
+            // Remove the token prefix
             return bearerToken.replace(properties.getTokenStartWith(), "");
         } else {
-            log.debug("非法Token：{}", bearerToken);
+            log.debug("Illegal token:{}", bearerToken);
         }
         return null;
     }

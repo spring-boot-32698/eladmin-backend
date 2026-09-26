@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 /**
- * @description  : 设置审计
+ * @description  : Set auditing
  * @author  : Dong ZhaoYang
  * @date : 2019/10/28
  */
@@ -29,17 +29,17 @@ import java.util.Optional;
 public class AuditorConfig implements AuditorAware<String> {
 
     /**
-     * 返回操作员标志信息
+     * Return the operator identification info
      *
      * @return /
      */
     @Override
     public Optional<String> getCurrentAuditor() {
         try {
-            // 这里应根据实际业务情况获取具体信息
+            // Get the concrete info here according to the actual business situation
             return Optional.of(SecurityUtils.getCurrentUsername());
         }catch (Exception ignored){}
-        // 用户定时任务，或者无Token调用的情况
+        // User scheduled tasks, or calls without a token
         return Optional.of("System");
     }
 }

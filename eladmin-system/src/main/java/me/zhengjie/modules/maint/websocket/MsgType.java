@@ -20,12 +20,12 @@ package me.zhengjie.modules.maint.websocket;
  * @date 2019-08-10 9:56
  */
 public enum MsgType {
-	/** 连接 */
+	/** Connect */
 	CONNECT,
-	/** 关闭 */
+	/** Close */
 	CLOSE,
-	/** 信息 */
+	/** Info */
 	INFO,
-	/** 错误 */
+	/** Error */
 	ERROR
 }

@@ -66,7 +66,7 @@ public class DeptServiceImpl implements DeptService {
             List<Field> fields = QueryHelp.getAllFields(criteria.getClass(), new ArrayList<>());
             List<String> fieldNames = new ArrayList<String>(){{ add("pidIsNull");add("enabled");}};
             for (Field field : fields) {
-                //设置对象的访问权限，保证对private的属性的访问
+                //Set the access permission of the object to ensure access to private properties
                 field.setAccessible(true);
                 Object val = field.get(criteria);
                 if(fieldNames.contains(field.getName())){
@@ -79,7 +79,7 @@ public class DeptServiceImpl implements DeptService {
             }
         }
         List<DeptDto> list = deptMapper.toDto(deptRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),sort));
-        // 如果为空，就代表为自定义权限或者本级权限，就需要去重，不理解可以注释掉，看查询结果
+        // If empty, it means custom permission or same-level permission and deduplication is needed; if unclear, comment it out and check the query result
         if(StringUtils.isBlank(dataScopeType)){
             return deduplication(list);
         }
@@ -112,31 +112,31 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = Exception.class)
     public void create(Dept resources) {
         deptRepository.save(resources);
-        // 计算子节点数目
+        // Count child nodes
         resources.setSubCount(0);
-        // 清理缓存
+        // Clear cache
         updateSubCnt(resources.getPid());
-        // 清理自定义角色权限的datascope缓存
+        // Clear the datascope cache of custom role permissions
         delCaches(resources.getPid());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(Dept resources) {
-        // 旧的部门
+        // Old department
         Long oldPid = findById(resources.getId()).getPid();
         Long newPid = resources.getPid();
         if(resources.getPid() != null && resources.getId().equals(resources.getPid())) {
-            throw new BadRequestException("上级不能为自己");
+            throw new BadRequestException("The parent cannot be itself");
         }
         Dept dept = deptRepository.findById(resources.getId()).orElseGet(Dept::new);
         ValidationUtil.isNull( dept.getId(),"Dept","id",resources.getId());
         resources.setId(dept.getId());
         deptRepository.save(resources);
-        // 更新父节点中子节点数目
+        // Update the number of child nodes in the parent node
         updateSubCnt(oldPid);
         updateSubCnt(newPid);
-        // 清理缓存
+        // Clear cache
         delCaches(resources.getId());
     }
 
@@ -144,7 +144,7 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<DeptDto> deptDtos) {
         for (DeptDto deptDto : deptDtos) {
-            // 清理缓存
+            // Clear cache
             delCaches(deptDto.getId());
             deptRepository.deleteById(deptDto.getId());
             updateSubCnt(deptDto.getPid());
@@ -156,9 +156,9 @@ public class DeptServiceImpl implements DeptService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (DeptDto deptDTO : deptDtos) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("部门名称", deptDTO.getName());
-            map.put("部门状态", deptDTO.getEnabled() ? "启用" : "停用");
-            map.put("创建日期", deptDTO.getCreateTime());
+            map.put("Department name", deptDTO.getName());
+            map.put("Department status", deptDTO.getEnabled() ? "Enable" : "Disable");
+            map.put("Created at", deptDTO.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
@@ -242,10 +242,10 @@ public class DeptServiceImpl implements DeptService {
     public void verification(Set<DeptDto> deptDtos) {
         Set<Long> deptIds = deptDtos.stream().map(DeptDto::getId).collect(Collectors.toSet());
         if(userRepository.countByDepts(deptIds) > 0){
-            throw new BadRequestException("所选部门存在用户关联，请解除后再试！");
+            throw new BadRequestException("A selected department is associated with users, please remove the association and try again!");
         }
         if(roleRepository.countByDepts(deptIds) > 0){
-            throw new BadRequestException("所选部门存在角色关联，请解除后再试！");
+            throw new BadRequestException("A selected department is associated with roles, please remove the association and try again!");
         }
     }
 
@@ -274,12 +274,12 @@ public class DeptServiceImpl implements DeptService {
     }
 
     /**
-     * 清理缓存
+     * Clear cache
      * @param id /
      */
     public void delCaches(Long id){
         List<User> users = userRepository.findByRoleDeptId(id);
-        // 删除数据权限
+        // Delete data permission
         redisUtils.delByKeys(CacheKey.DATA_USER, users.stream().map(User::getId).collect(Collectors.toSet()));
         redisUtils.del(CacheKey.DEPT_ID + id);
     }

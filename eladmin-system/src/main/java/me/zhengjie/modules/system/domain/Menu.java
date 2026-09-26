@@ -45,49 +45,49 @@ public class Menu extends BaseEntity implements Serializable {
 
     @JSONField(serialize = false)
     @ManyToMany(mappedBy = "menus")
-    @ApiModelProperty(value = "菜单角色")
+    @ApiModelProperty(value = "Menu role")
     private Set<Role> roles;
 
-    @ApiModelProperty(value = "菜单标题")
+    @ApiModelProperty(value = "Menu title")
     private String title;
 
     @Column(name = "name")
-    @ApiModelProperty(value = "菜单组件名称")
+    @ApiModelProperty(value = "Menu component name")
     private String componentName;
 
-    @ApiModelProperty(value = "排序")
+    @ApiModelProperty(value = "Sort")
     private Integer menuSort = 999;
 
-    @ApiModelProperty(value = "组件路径")
+    @ApiModelProperty(value = "Component path")
     private String component;
 
-    @ApiModelProperty(value = "路由地址")
+    @ApiModelProperty(value = "Route path")
     private String path;
 
-    @ApiModelProperty(value = "菜单类型，目录、菜单、按钮")
+    @ApiModelProperty(value = "Menu type: directory, menu, button")
     private Integer type;
 
-    @ApiModelProperty(value = "权限标识")
+    @ApiModelProperty(value = "Permission identifier")
     private String permission;
 
-    @ApiModelProperty(value = "菜单图标")
+    @ApiModelProperty(value = "Menu icon")
     private String icon;
 
     @Column(columnDefinition = "bit(1) default 0")
-    @ApiModelProperty(value = "缓存")
+    @ApiModelProperty(value = "Cache")
     private Boolean cache;
 
     @Column(columnDefinition = "bit(1) default 0")
-    @ApiModelProperty(value = "是否隐藏")
+    @ApiModelProperty(value = "Hidden")
     private Boolean hidden;
 
-    @ApiModelProperty(value = "上级菜单")
+    @ApiModelProperty(value = "Parent menu")
     private Long pid;
 
-    @ApiModelProperty(value = "子节点数目", hidden = true)
+    @ApiModelProperty(value = "Number of child nodes", hidden = true)
     private Integer subCount = 0;
 
-    @ApiModelProperty(value = "外链菜单")
+    @ApiModelProperty(value = "External link menu")
     private Boolean iFrame;
 
     @Override

@@ -31,21 +31,21 @@ import java.util.Set;
 public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
 
     /**
-     * 根据名称查询
+     * Query by name
      * @param name /
      * @return /
      */
     Role findByName(String name);
 
     /**
-     * 删除多个角色
+     * Delete multiple roles
      * @param ids /
      */
     void deleteAllByIdIn(Set<Long> ids);
 
     /**
-     * 根据用户ID查询
-     * @param id 用户ID
+     * Query by user ID
+     * @param id User ID
      * @return /
      */
     @Query(value = "SELECT r.* FROM sys_role r, sys_users_roles u WHERE " +
@@ -53,15 +53,15 @@ public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificat
     Set<Role> findByUserId(Long id);
 
     /**
-     * 解绑角色菜单
-     * @param id 菜单ID
+     * Unbind role menu
+     * @param id Menu ID
      */
     @Modifying
     @Query(value = "delete from sys_roles_menus where menu_id = ?1",nativeQuery = true)
     void untiedMenu(Long id);
 
     /**
-     * 根据部门查询
+     * Query by department
      * @param deptIds /
      * @return /
      */
@@ -70,7 +70,7 @@ public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificat
     int countByDepts(Set<Long> deptIds);
 
     /**
-     * 根据菜单Id查询
+     * Query by menu ID
      * @param menuIds /
      * @return /
      */

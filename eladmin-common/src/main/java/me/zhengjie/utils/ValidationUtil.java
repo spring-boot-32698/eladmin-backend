@@ -20,7 +20,7 @@ import cn.hutool.core.util.ObjectUtil;
 import me.zhengjie.exception.BadRequestException;
 
 /**
- * 验证工具
+ * Validation utility
  *
  * @author Zheng Jie
  * @date 2018-11-23
@@ -28,17 +28,17 @@ import me.zhengjie.exception.BadRequestException;
 public class ValidationUtil {
 
     /**
-     * 验证空
+     * Validate empty
      */
     public static void isNull(Object obj, String entity, String parameter , Object value){
         if(ObjectUtil.isNull(obj)){
-            String msg = entity + " 不存在: "+ parameter +" is "+ value;
+            String msg = entity + " does not exist: "+ parameter +" is "+ value;
             throw new BadRequestException(msg);
         }
     }
 
   /**
-   * 验证是否为邮箱
+   * Validate whether it is an email
    */
   public static boolean isEmail(String email) {
     return Validator.isEmail(email);

@@ -60,9 +60,9 @@ public class MenuServiceImpl implements MenuService {
 
     private static final String HTTP_PRE = "http://";
     private static final String HTTPS_PRE = "https://";
-    private static final String YES_STR = "是";
-    private static final String NO_STR = "否";
-    private static final String BAD_REQUEST = "外链必须以http://或者https://开头";
+    private static final String YES_STR = "Yes";
+    private static final String NO_STR = "No";
+    private static final String BAD_REQUEST = "External links must start with http://or https://start";
     
     @Override
     public List<MenuDto> queryAll(MenuQueryCriteria criteria, Boolean isQuery) throws Exception {
@@ -71,7 +71,7 @@ public class MenuServiceImpl implements MenuService {
             criteria.setPidIsNull(true);
             List<Field> fields = QueryHelp.getAllFields(criteria.getClass(), new ArrayList<>());
             for (Field field : fields) {
-                //设置对象的访问权限，保证对private的属性的访问
+                //Set the access permission of the object to ensure access to private properties
                 field.setAccessible(true);
                 Object val = field.get(criteria);
                 if("pidIsNull".equals(field.getName())){
@@ -99,7 +99,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 用户角色改变时需清理缓存
+     * The cache must be cleared when user roles change
      * @param currentUserId /
      * @return /
      */
@@ -137,9 +137,9 @@ public class MenuServiceImpl implements MenuService {
             }
         }
         menuRepository.save(resources);
-        // 计算子节点数目
+        // Count child nodes
         resources.setSubCount(0);
-        // 更新父节点菜单数目
+        // Update the number of menus in the parent node
         updateSubCnt(resources.getPid());
     }
 
@@ -147,7 +147,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void update(Menu resources) {
         if(resources.getId().equals(resources.getPid())) {
-            throw new BadRequestException("上级不能为自己");
+            throw new BadRequestException("The parent cannot be itself");
         }
         Menu menu = menuRepository.findById(resources.getId()).orElseGet(Menu::new);
         ValidationUtil.isNull(menu.getId(),"Permission","id",resources.getId());
@@ -167,7 +167,7 @@ public class MenuServiceImpl implements MenuService {
             resources.setPid(null);
         }
 
-        // 记录的父节点ID
+        // Parent node of the record ID
         Long oldPid = menu.getPid();
         Long newPid = resources.getPid();
 
@@ -190,10 +190,10 @@ public class MenuServiceImpl implements MenuService {
         menu.setPermission(resources.getPermission());
         menu.setType(resources.getType());
         menuRepository.save(menu);
-        // 计算父级菜单节点数目
+        // Count the parent menu's nodes
         updateSubCnt(oldPid);
         updateSubCnt(newPid);
-        // 清理缓存
+        // Clear cache
         delCaches(resources.getId());
     }
 
@@ -213,7 +213,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Menu> menuSet) {
         for (Menu menu : menuSet) {
-            // 清理缓存
+            // Clear cache
             delCaches(menu.getId());
             roleService.untiedMenu(menu.getId());
             menuRepository.deleteById(menu.getId());
@@ -274,14 +274,14 @@ public class MenuServiceImpl implements MenuService {
                         List<MenuDto> menuDtoList = menuDTO.getChildren();
                         MenuVo menuVo = new MenuVo();
                         menuVo.setName(ObjectUtil.isNotEmpty(menuDTO.getComponentName())  ? menuDTO.getComponentName() : menuDTO.getTitle());
-                        // 一级目录需要加斜杠，不然会报警告
+                        // A top-level directory needs a leading slash, otherwise a warning is reported
                         menuVo.setPath(menuDTO.getPid() == null ? "/" + menuDTO.getPath() :menuDTO.getPath());
                         menuVo.setHidden(menuDTO.getHidden());
-                        // 如果不是外链
+                        // If it is not an external link
                         if(!menuDTO.getIFrame()){
                             if(menuDTO.getPid() == null){
                                 menuVo.setComponent(StringUtils.isEmpty(menuDTO.getComponent())?"Layout":menuDTO.getComponent());
-                                // 如果不是一级菜单，并且菜单类型为目录，则代表是多级菜单
+                                // If it is not a top-level menu and the menu type is directory, it is a multi-level menu
                             }else if(menuDTO.getType() == 0){
                                 menuVo.setComponent(StringUtils.isEmpty(menuDTO.getComponent())?"ParentView":menuDTO.getComponent());
                             }else if(StringUtils.isNoneBlank(menuDTO.getComponent())){
@@ -293,7 +293,7 @@ public class MenuServiceImpl implements MenuService {
                             menuVo.setAlwaysShow(true);
                             menuVo.setRedirect("noredirect");
                             menuVo.setChildren(buildMenus(menuDtoList));
-                            // 处理是一级菜单并且没有子菜单的情况
+                            // Handle the case of a top-level menu without submenus
                         } else if(menuDTO.getPid() == null){
                             MenuVo menuVo1 = getMenuVo(menuDTO, menuVo);
                             menuVo.setName(null);
@@ -322,13 +322,13 @@ public class MenuServiceImpl implements MenuService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (MenuDto menuDTO : menuDtos) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("菜单标题", menuDTO.getTitle());
-            map.put("菜单类型", menuDTO.getType() == null ? "目录" : menuDTO.getType() == 1 ? "菜单" : "按钮");
-            map.put("权限标识", menuDTO.getPermission());
-            map.put("外链菜单", menuDTO.getIFrame() ? YES_STR : NO_STR);
-            map.put("菜单可见", menuDTO.getHidden() ? NO_STR : YES_STR);
-            map.put("是否缓存", menuDTO.getCache() ? YES_STR : NO_STR);
-            map.put("创建日期", menuDTO.getCreateTime());
+            map.put("Menu title", menuDTO.getTitle());
+            map.put("Menu type", menuDTO.getType() == null ? "Directory" : menuDTO.getType() == 1 ? "Menu" : "Button");
+            map.put("Permission identifier", menuDTO.getPermission());
+            map.put("External link menu", menuDTO.getIFrame() ? YES_STR : NO_STR);
+            map.put("Menu visible", menuDTO.getHidden() ? NO_STR : YES_STR);
+            map.put("Cached", menuDTO.getCache() ? YES_STR : NO_STR);
+            map.put("Created at", menuDTO.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
@@ -342,14 +342,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 清理缓存
-     * @param id 菜单ID
+     * Clear cache
+     * @param id Menu ID
      */
     public void delCaches(Long id){
         List<User> users = userRepository.findByMenuId(id);
         redisUtils.del(CacheKey.MENU_ID + id);
         redisUtils.delByKeys(CacheKey.MENU_USER, users.stream().map(User::getId).collect(Collectors.toSet()));
-        // 清除 Role 缓存
+        // Clear the Role cache
         List<Role> roles = roleService.findInMenuId(new ArrayList<Long>(){{
             add(id);
         }});
@@ -357,7 +357,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 构建前端路由
+     * Build front-end routes
      * @param menuDTO /
      * @param menuVo /
      * @return /
@@ -365,7 +365,7 @@ public class MenuServiceImpl implements MenuService {
     private static MenuVo getMenuVo(MenuDto menuDTO, MenuVo menuVo) {
         MenuVo menuVo1 = new MenuVo();
         menuVo1.setMeta(menuVo.getMeta());
-        // 非外链
+        // Not an external link
         if(!menuDTO.getIFrame()){
             menuVo1.setPath("index");
             menuVo1.setName(menuVo.getName());

@@ -1,4 +1,4 @@
-<h1 style="text-align: center">ELADMIN 后台管理系统</h1>
+<h1 style="text-align: center">ELADMIN Admin System</h1>
 <div style="text-align: center">
 
 [![AUR](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](https://github.com/elunez/eladmin/blob/master/LICENSE)
@@ -8,120 +8,120 @@
 
 </div>
 
-#### 项目简介
-一个基于 Spring Boot 2.7.18 、 Spring Boot Jpa、 JWT、Spring Security、Redis、Vue的前后端分离的后台管理系统
+#### Project overview
+A front-end/back-end separated admin system based on Spring Boot 2.7.18, Spring Boot JPA, JWT, Spring Security, Redis and Vue
 
-现已发布基于 mybatis-plus 版本，项目地址：[https://github.com/elunez/eladmin-mp](https://github.com/elunez/eladmin-mp)、[https://gitee.com/elunez/eladmin-mp](https://gitee.com/elunez/eladmin-mp)。
+A mybatis-plus based version is now released, project URL:[https://github.com/elunez/eladmin-mp](https://github.com/elunez/eladmin-mp), [https://gitee.com/elunez/eladmin-mp](https://gitee.com/elunez/eladmin-mp). 
 
-**开发文档：**  [https://eladmin.vip](https://eladmin.vip)
+**Development docs:**  [https://eladmin.vip](https://eladmin.vip)
 
-**体验地址：**  [https://eladmin.vip/demo](https://eladmin.vip/demo)
+**Demo URL:**  [https://eladmin.vip/demo](https://eladmin.vip/demo)
 
-**账号密码：** `admin / 123456`
+**Account password:** `admin / 123456`
 
-#### 项目源码
+#### Project source
 
-|     |   后端源码  |   前端源码  |
+|     |   Back-end source code  |   Front-end source code  |
 |---  |--- | --- |
 |  github   |  https://github.com/elunez/eladmin   |  https://github.com/elunez/eladmin-web   |
-|  码云   |  https://gitee.com/elunez/eladmin   |  https://gitee.com/elunez/eladmin-web   |
+|  Gitee   |  https://gitee.com/elunez/eladmin   |  https://gitee.com/elunez/eladmin-web   |
 
-#### VPS推荐
+#### VPS Recommended
 <a href="https://bwh81.net/aff.php?aff=70876" target="_blank">
 <img src="https://eladmin.vip/images/banner/side.jpeg" style="width: 435px;border-radius: 2px;">
 </a>
 
-使用优惠码: `BWHCGLUKKB`，可获得 6.81% 的折扣 [查看介绍](https://bwhstock.in/)
+Use coupon code: `BWHCGLUKKB`, obtainable 6.81%  discount [View introduction](https://bwhstock.in/)
 
-#### 主要特性
-- 使用最新技术栈，社区资源丰富。
-- 高效率开发，代码生成器可一键生成前后端代码
-- 支持数据字典，可方便地对一些状态进行管理
-- 支持接口限流，避免恶意请求导致服务层压力过大
-- 支持接口级别的功能权限与数据权限，可自定义操作
-- 自定义权限注解与匿名接口注解，可快速对接口拦截与放行
-- 对一些常用地前端组件封装：表格数据请求、数据字典等
-- 前后端统一异常拦截处理，统一输出异常，避免繁琐的判断
-- 支持在线用户管理与服务器性能监控，支持限制单用户登录
-- 支持运维管理，可方便地对远程服务器的应用进行部署与管理
+#### Main features
+- Uses the latest tech stack with rich community resources.
+- Efficient development: the code generator can produce front-end and back-end code with one click
+- Supports data dictionaries for easy management of statuses
+- Supports endpoint rate limiting to prevent malicious requests from overloading the service layer
+- Supports endpoint-level feature permissions and data permissions, with customizable operations
+- Custom permission annotation and anonymous endpoint annotation for quickly intercepting or allowing endpoints
+- Wraps some common front-end components: table data requests, data dictionaries, etc.
+- Unified front-end/back-end exception interception; exceptions are output uniformly to avoid tedious checks
+- Supports online user management and server performance monitoring, and can limit a user to a single login
+- Supports operations management for easily deploying and managing applications on remote servers
 
-####  系统功能
-- 用户管理：提供用户的相关配置，新增用户后，默认密码为123456
-- 角色管理：对权限与菜单进行分配，可根据部门设置角色的数据权限
-- 菜单管理：已实现菜单动态路由，后端可配置化，支持多级菜单
-- 部门管理：可配置系统组织架构，树形表格展示
-- 岗位管理：配置各个部门的职位
-- 字典管理：可维护常用一些固定的数据，如：状态，性别等
-- 系统日志：记录用户操作日志与异常日志，方便开发人员定位排错
-- SQL监控：采用druid 监控数据库访问性能，默认用户名admin，密码123456
-- 定时任务：整合Quartz做定时任务，加入任务日志，任务运行情况一目了然
-- 代码生成：高灵活度生成前后端代码，减少大量重复的工作任务
-- 邮件工具：配合富文本，发送html格式的邮件
-- 亚马逊S3云存储：支持市面上大多数对象存储，兼容亚马逊S3协议，如七牛云，阿里云等
-- 支付宝支付：整合了支付宝支付并且提供了测试账号，可自行测试
-- 服务监控：监控服务器的负载情况
-- 运维管理：一键部署你的应用
+####  System functions
+- User management: provides user-related configuration; after adding a user the default password is 123456
+- Role management: assign permissions and menus, and set role data permissions by department
+- Menu management: dynamic menu routing is implemented, configurable from the back end, with multi-level menu support
+- Department management: configure the organization structure, displayed as a tree table
+- Job management: configure the positions of each department
+- Dictionary management: maintain commonly used fixed data, e.g. status, gender
+- System logs: records user operation logs and exception logs so developers can locate and debug problems
+- SQL Monitoring: uses druid to monitor database access performance, default username admin, password 123456
+- Scheduled tasks: integrates Quartz for scheduled tasks and adds task logs, so task status is clear at a glance
+- Code generation: flexibly generate front-end and back-end code, reducing a lot of repetitive work
+- Email tool: send HTML emails together with rich text
+- Amazon S3 cloud storage: supports most object storage on the market that is compatible with the Amazon S3 protocol, such as Qiniu Cloud and Alibaba Cloud
+- Alipay payment: integrates Alipay payment and provides a test account for self-testing
+- Service monitoring: monitor the server load
+- Operations management: deploy your applications with one click
 
-#### 项目结构
-项目采用按功能分模块的开发方式，结构如下
+#### Project structure
+The project is developed in modules by function, structured as follows
 
-- `eladmin-common` 为系统的公共模块，各种工具类，公共配置存在该模块
+- `eladmin-common` Common module of the system; various utility classes and shared configuration live in this module
 
-- `eladmin-system` 为系统核心模块也是项目入口模块，也是最终需要打包部署的模块
+- `eladmin-system` Core system module and project entry module, and the module that is finally packaged and deployed
 
-- `eladmin-logging` 为系统的日志模块，其他模块如果需要记录日志需要引入该模块
+- `eladmin-logging` Logging module of the system; other modules that need to record logs must import this module
 
-- `eladmin-tools` 为第三方工具模块，包含：邮件、亚马逊S3云存储、本地存储、支付宝
+- `eladmin-tools` Third-party tools module, including: email, Amazon S3 cloud storage, local storage, Alipay
 
-- `eladmin-generator` 为系统的代码生成模块，支持生成前后端CRUD代码
+- `eladmin-generator` Code generation module of the system, supporting generation of front-end and back-end CRUD code
 
-#### 详细结构
+#### Detailed structure
 
 ```
-- eladmin-common 公共模块
-    - annotation 为系统自定义注解
-    - aspect 自定义注解的切面
-    - base 提供了Entity、DTO基类和mapstruct的通用mapper
-    - config 项目通用配置
-        - Web配置跨域与静态资源映射、Swagger配置，文件上传临时路径配置
-        - Redis配置，Redission配置, 异步线程池配置
-        - 权限拦截配置、AuthorityConfig、Druid 删除广告配置
-    - exception 项目统一异常的处理
-    - utils 系统通用工具类，列举一些常用的工具类
-        - BigDecimaUtils 金额计算工具类
-        - RequestHolder 请求工具类
-        - SecurityUtils 安全工具类
-        - StringUtils 字符串工具类
-        - SpringBeanHolder Spring Bean工具类
-        - RedisUtils Redis工具类
-        - EncryptUtils 加密工具类
-        - FileUtil 文件工具类
-- eladmin-system 系统核心模块（系统启动入口）
-    - sysrunner 程序启动后处理数据
-	- modules 系统相关模块(登录授权、系统监控、定时任务、系统模块、运维模块)
-- eladmin-logging 系统日志模块
-- eladmin-tools 系统第三方工具模块
-    - email 邮件工具
-    - amazon 亚马逊S3云存储工具
-    - alipay 支付宝支付工具
-    - local-storage 本地存储工具
-- eladmin-generator 系统代码生成模块
+- eladmin-common Common module
+    - annotation Custom annotations of the system
+    - aspect Aspect for the custom annotation
+    - base Provides Entity and DTO base classes and the generic mapstruct mapper
+    - config General project configuration
+        - Web Configure CORS and static resource mapping, Swagger, and the temporary file upload path
+        - Redis Configuration, Redisson configuration, Async thread pool configuration
+        - Permission interception config, AuthorityConfig, Druid ad removal config
+    - exception Unified exception handling of the project
+    - utils General system utility classes, listing some commonly used ones
+        - BigDecimaUtils Amount calculation utility class
+        - RequestHolder Request utility class
+        - SecurityUtils Security utility class
+        - StringUtils String utility class
+        - SpringBeanHolder Spring Bean Utility class
+        - RedisUtils Redis Utility class
+        - EncryptUtils Encryption utility class
+        - FileUtil File utility class
+- eladmin-system System core module (application entry point)
+    - sysrunner Process data after the program starts
+	- modules System-related modules(Login authorization, system monitoring, scheduled tasks, system modules, operations modules)
+- eladmin-logging System logging module
+- eladmin-tools System third-party tools module
+    - email Email tool
+    - amazon Amazon S3 cloud storage tool
+    - alipay Alipay payment tool
+    - local-storage Local storage tool
+- eladmin-generator System code generation module
 ```
 
-#### 特别鸣谢
+#### Special thanks
 
-- 感谢 [PanJiaChen](https://github.com/PanJiaChen/vue-element-admin) 大佬提供的前端模板
+- Thanks to [PanJiaChen](https://github.com/PanJiaChen/vue-element-admin) Front-end template provided by a community expert
 
-- 感谢 [Moxun](https://github.com/moxun1639) 大佬提供的前端 Curd 通用组件
+- Thanks to [Moxun](https://github.com/moxun1639) Generic front-end Curd component provided by a community expert
 
-- 感谢 [zhy6599](https://gitee.com/zhy6599) 大佬提供的后端运维管理相关功能
+- Thanks to [zhy6599](https://gitee.com/zhy6599) Back-end operations management features provided by a community expert
 
-- 感谢 [j.yao.SUSE](https://github.com/everhopingandwaiting) 大佬提供的匿名接口与Redis限流等功能
+- Thanks to [j.yao.SUSE](https://github.com/everhopingandwaiting) Anonymous endpoints and Redis rate limiting provided by a community expert
 
-- 感谢 [d15801543974](https://github.com/d15801543974) 大佬提供的基于注解的通用查询方式
+- Thanks to [d15801543974](https://github.com/d15801543974) Annotation-based generic query approach provided by a community expert
 
-#### 项目捐赠
-项目的发展离不开你的支持，请作者喝杯咖啡吧☕  [Donate](https://eladmin.vip/pages/030101/)
+#### Donate
+The project cannot grow without your support, buy the author a coffee☕  [Donate](https://eladmin.vip/pages/030101/)
 
-#### 反馈交流
-- QQ交流群：891137268 、947578238、659622532
+#### Feedback and discussion
+- QQ Discussion groups: 891137268, 947578238,659622532

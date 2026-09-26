@@ -28,11 +28,11 @@ import java.util.List;
 @Data
 public class AppQueryCriteria{
 
-	@ApiModelProperty(value = "模糊")
+	@ApiModelProperty(value = "Fuzzy")
     @Query(type = Query.Type.INNER_LIKE)
     private String name;
 
-	@ApiModelProperty(value = "创建时间")
+	@ApiModelProperty(value = "Created at")
 	@Query(type = Query.Type.BETWEEN)
 	private List<Timestamp> createTime;
 }

@@ -46,7 +46,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * api页面 /doc.html
+ * api Page /doc.html
  * @author Zheng Jie
  * @date 2018-11-23
  */
@@ -77,21 +77,21 @@ public class SwaggerConfig {
                 .paths(PathSelectors.regex("^(?!/error).*"))
                 .paths(PathSelectors.any())
                 .build()
-                //添加登陆认证
+                //Add login authentication
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .description("一个简单且易上手的 Spring boot 后台管理框架")
-                .title("ELADMIN 接口文档")
+                .description("A simple and easy-to-use Spring Boot admin framework")
+                .title("ELADMIN API docs")
                 .version("2.7")
                 .build();
     }
 
     private List<SecurityScheme> securitySchemes() {
-        //设置请求头信息
+        //Set request headers
         List<SecurityScheme> securitySchemes = new ArrayList<>();
         ApiKey apiKey = new ApiKey(tokenHeader, tokenHeader, "header");
         securitySchemes.add(apiKey);
@@ -99,7 +99,7 @@ public class SwaggerConfig {
     }
 
     private List<SecurityContext> securityContexts() {
-        //设置需要登录认证的路径
+        //Set the paths that require login authentication
         List<SecurityContext> securityContexts = new ArrayList<>();
         securityContexts.add(getContextByPath());
         return securityContexts;
@@ -112,7 +112,7 @@ public class SwaggerConfig {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .operationSelector(o->o.requestMappingPattern()
-                        // 排除不需要认证的接口
+                        // Exclude endpoints that do not require authentication
                         .matches(regExp))
                 .build();
     }
@@ -127,7 +127,7 @@ public class SwaggerConfig {
     }
 
     /**
-     * 解决Springfox与SpringBoot集成后，WebMvcRequestHandlerProvider和WebFluxRequestHandlerProvider冲突问题
+     * Fix the conflict between WebMvcRequestHandlerProvider and WebFluxRequestHandlerProvider after integrating Springfox with SpringBoot
      * @return /
      */
     @Bean

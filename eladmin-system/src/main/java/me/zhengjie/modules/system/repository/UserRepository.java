@@ -31,30 +31,30 @@ import java.util.Set;
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
     /**
-     * 根据用户名查询
-     * @param username 用户名
+     * Query by username
+     * @param username Username
      * @return /
      */
     User findByUsername(String username);
 
     /**
-     * 根据邮箱查询
-     * @param email 邮箱
+     * Query by email
+     * @param email Email
      * @return /
      */
     User findByEmail(String email);
 
     /**
-     * 根据手机号查询
-     * @param phone 手机号
+     * Query by phone number
+     * @param phone Phone number
      * @return /
      */
     User findByPhone(String phone);
 
     /**
-     * 修改密码
-     * @param username 用户名
-     * @param pass 密码
+     * Change password
+     * @param username Username
+     * @param pass Password
      * @param lastPasswordResetTime /
      */
     @Modifying
@@ -62,16 +62,16 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     void updatePass(String username, String pass, Date lastPasswordResetTime);
 
     /**
-     * 修改邮箱
-     * @param username 用户名
-     * @param email 邮箱
+     * Change email
+     * @param username Username
+     * @param email Email
      */
     @Modifying
     @Query(value = "update sys_user set email = ?2 where username = ?1",nativeQuery = true)
     void updateEmail(String username, String email);
 
     /**
-     * 根据角色查询用户
+     * Query users by role
      * @param roleId /
      * @return /
      */
@@ -80,7 +80,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     List<User> findByRoleId(Long roleId);
 
     /**
-     * 根据角色中的部门查询
+     * Query by the departments in the role
      * @param deptId /
      * @return /
      */
@@ -89,8 +89,8 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     List<User> findByRoleDeptId(Long deptId);
 
     /**
-     * 根据菜单查询
-     * @param id 菜单ID
+     * Query by menu
+     * @param id Menu ID
      * @return /
      */
     @Query(value = "SELECT u.* FROM sys_user u, sys_users_roles ur, sys_roles_menus rm WHERE\n" +
@@ -98,13 +98,13 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     List<User> findByMenuId(Long id);
 
     /**
-     * 根据Id删除
+     * Delete by ID
      * @param ids /
      */
     void deleteAllByIdIn(Set<Long> ids);
 
     /**
-     * 根据岗位查询
+     * Query by job
      * @param ids /
      * @return /
      */
@@ -112,7 +112,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     int countByJobs(Set<Long> ids);
 
     /**
-     * 根据部门查询
+     * Query by department
      * @param deptIds /
      * @return /
      */
@@ -120,7 +120,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     int countByDepts(Set<Long> deptIds);
 
     /**
-     * 根据角色查询
+     * Query by role
      * @param ids /
      * @return /
      */
@@ -129,9 +129,9 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     int countByRoles(Set<Long> ids);
 
     /**
-     * 重置密码
-     * @param ids 、
-     * @param pwd 、
+     * Reset password
+     * @param ids , 
+     * @param pwd , 
      */
     @Modifying
     @Query(value = "update sys_user set password = ?2 where user_id in ?1",nativeQuery = true)

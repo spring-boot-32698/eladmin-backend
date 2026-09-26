@@ -24,16 +24,16 @@ import java.util.List;
 
 /**
  * @author Zheng Jie
- * 公共查询类
+ * Common query class
  */
 @Data
 public class RoleQueryCriteria {
 
-    @ApiModelProperty(value = "模糊查询")
+    @ApiModelProperty(value = "Fuzzy query")
     @Query(blurry = "name,description")
     private String blurry;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

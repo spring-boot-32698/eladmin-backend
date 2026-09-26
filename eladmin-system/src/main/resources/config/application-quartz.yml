@@ -1,29 +1,29 @@
-# 配置 quartz 分布式支持, sql 文件在 sql 目录下，需要导入到数据库，并且需要修改 application.yml 文件的 active: dev 配置
+# Configure quartz distributed support, sql The files are in the sql directory and must be imported into the database; you also need to modify the following in application.yml: active: dev Config
 spring:
   quartz:
-    # 必需，指定使用 JDBC 存储
+    # Required, specify JDBC storage
     job-store-type: jdbc
     properties:
       org:
         quartz:
           scheduler:
-            # 必需，指定调度器实例的名称
+            # Required, specify the scheduler instance name
             instanceName: eladmin
-            # 必需，指定调度器实例的 ID
+            # Required, specify the scheduler instance's ID
             instanceId: auto
           threadPool:
-            # 可选，线程池的线程数量，可以根据需要调整
+            # Optional, thread count of the thread pool, adjust as needed
             threadCount: 5
           jobStore:
-            # 可选，如果你不需要集群，可以去掉
+            # Optional, remove it if you do not need a cluster
             isClustered: true
-            # 可选，集群检查间隔时间，可以根据需要调整
+            # Optional, cluster check interval, adjust as needed
             clusterCheckinInterval: 10000
-            # 必需，指定 JDBC 驱动代理类
+            # Required, specify the JDBC driver delegate class
             driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-            # 可选，是否使用属性存储，可以根据需要调整
+            # Optional, whether to use property storage, adjust as needed
             useProperties: false
-            # 必需，指定表的前缀
+            # Required, specify the table prefix
             tablePrefix: qrtz_
-            # 可选，指定误触发阈值，可以根据需要调整
+            # Optional, specify the misfire threshold, adjust as needed
             misfireThreshold: 60000

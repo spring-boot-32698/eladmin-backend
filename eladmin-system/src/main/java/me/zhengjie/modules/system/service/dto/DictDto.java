@@ -33,12 +33,12 @@ public class DictDto extends BaseDTO implements Serializable {
     @ApiModelProperty(value = "ID")
     private Long id;
 
-    @ApiModelProperty(value = "字典详情")
+    @ApiModelProperty(value = "Dictionary detail")
     private List<DictDetailDto> dictDetails;
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "Name")
     private String name;
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "Description")
     private String description;
 }

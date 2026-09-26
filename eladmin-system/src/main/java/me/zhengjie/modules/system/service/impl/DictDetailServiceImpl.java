@@ -57,7 +57,7 @@ public class DictDetailServiceImpl implements DictDetailService {
     @Transactional(rollbackFor = Exception.class)
     public void create(DictDetail resources) {
         dictDetailRepository.save(resources);
-        // 清理缓存
+        // Clear cache
         delCaches(resources);
     }
 
@@ -68,7 +68,7 @@ public class DictDetailServiceImpl implements DictDetailService {
         ValidationUtil.isNull( dictDetail.getId(),"DictDetail","id",resources.getId());
         resources.setId(dictDetail.getId());
         dictDetailRepository.save(resources);
-        // 清理缓存
+        // Clear cache
         delCaches(resources);
     }
 
@@ -87,7 +87,7 @@ public class DictDetailServiceImpl implements DictDetailService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         DictDetail dictDetail = dictDetailRepository.findById(id).orElseGet(DictDetail::new);
-        // 清理缓存
+        // Clear cache
         delCaches(dictDetail);
         dictDetailRepository.deleteById(id);
     }

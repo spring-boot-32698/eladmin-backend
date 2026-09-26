@@ -35,49 +35,49 @@ public class UserDto extends BaseDTO implements Serializable {
     @ApiModelProperty(value = "ID")
     private Long id;
 
-    @ApiModelProperty(value = "角色")
+    @ApiModelProperty(value = "Role")
     private Set<RoleSmallDto> roles;
 
-    @ApiModelProperty(value = "岗位")
+    @ApiModelProperty(value = "Job")
     private Set<JobSmallDto> jobs;
 
-    @ApiModelProperty(value = "部门")
+    @ApiModelProperty(value = "Department")
     private DeptSmallDto dept;
 
-    @ApiModelProperty(value = "部门ID")
+    @ApiModelProperty(value = "Department ID")
     private Long deptId;
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "Username")
     private String username;
 
-    @ApiModelProperty(value = "昵称")
+    @ApiModelProperty(value = "Nickname")
     private String nickName;
 
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty(value = "Email")
     private String email;
 
-    @ApiModelProperty(value = "电话")
+    @ApiModelProperty(value = "Phone")
     private String phone;
 
-    @ApiModelProperty(value = "性别")
+    @ApiModelProperty(value = "Gender")
     private String gender;
 
-    @ApiModelProperty(value = "头像")
+    @ApiModelProperty(value = "Avatar")
     private String avatarName;
 
-    @ApiModelProperty(value = "头像路径")
+    @ApiModelProperty(value = "Avatar path")
     private String avatarPath;
 
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty(value = "Password")
     private String password;
 
-    @ApiModelProperty(value = "是否启用")
+    @ApiModelProperty(value = "Enabled")
     private Boolean enabled;
 
-    @ApiModelProperty(value = "管理员")
+    @ApiModelProperty(value = "Administrator")
     @JSONField(serialize = false)
     private Boolean isAdmin = false;
 
-    @ApiModelProperty(value = "密码重置时间")
+    @ApiModelProperty(value = "Password reset time")
     private Date pwdResetTime;
 }

@@ -28,15 +28,15 @@ import java.util.List;
 @Data
 public class DeployHistoryQueryCriteria{
 
-	@ApiModelProperty(value = "模糊查询")
+	@ApiModelProperty(value = "Fuzzy query")
 	@Query(blurry = "appName,ip,deployUser")
 	private String blurry;
 
 	@Query
-	@ApiModelProperty(value = "部署编号")
+	@ApiModelProperty(value = "Deployment ID")
 	private Long deployId;
 
-	@ApiModelProperty(value = "部署时间")
+	@ApiModelProperty(value = "Deployment time")
 	@Query(type = Query.Type.BETWEEN)
 	private List<Timestamp> deployDate;
 }

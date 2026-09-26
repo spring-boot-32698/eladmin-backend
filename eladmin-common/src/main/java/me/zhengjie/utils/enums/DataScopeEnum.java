@@ -20,7 +20,7 @@ import lombok.Getter;
 
 /**
  * <p>
- * 数据权限枚举
+ * Data permission enum
  * </p>
  * @author Zheng Jie
  * @date 2020-05-07
@@ -29,14 +29,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DataScopeEnum {
 
-    /* 全部的数据权限 */
-    ALL("全部", "全部的数据权限"),
+    /* All data permissions */
+    ALL("All", "All data permissions"),
 
-    /* 自己部门的数据权限 */
-    THIS_LEVEL("本级", "自己部门的数据权限"),
+    /* Data permission of one's own department */
+    THIS_LEVEL("Same level", "Data permission of one's own department"),
 
-    /* 自定义的数据权限 */
-    CUSTOMIZE("自定义", "自定义的数据权限");
+    /* Custom data permission */
+    CUSTOMIZE("Custom", "Custom data permission");
 
     private final String value;
     private final String description;

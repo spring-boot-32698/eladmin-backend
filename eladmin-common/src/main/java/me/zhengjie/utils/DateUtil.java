@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * @author: liaojinlong
  * @date: 2020/6/11 16:28
- * @apiNote: JDK 8  新日期类 格式化与字符串转换 工具类
+ * @apiNote: JDK 8  Utility class for the new date classes: formatting and string conversion
  */
 public class DateUtil {
 
@@ -31,7 +31,7 @@ public class DateUtil {
     public static final DateTimeFormatter DFY_MD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * LocalDateTime 转时间戳
+     * LocalDateTime Convert to timestamp
      *
      * @param localDateTime /
      * @return /
@@ -41,7 +41,7 @@ public class DateUtil {
     }
 
     /**
-     * 时间戳转LocalDateTime
+     * Timestamp to LocalDateTime
      *
      * @param timeStamp /
      * @return /
@@ -51,8 +51,8 @@ public class DateUtil {
     }
 
     /**
-     * LocalDateTime 转 Date
-     * Jdk8 后 不推荐使用 {@link Date} Date
+     * LocalDateTime Convert Date
+     * Jdk8 after, not recommended {@link Date} Date
      *
      * @param localDateTime /
      * @return /
@@ -62,8 +62,8 @@ public class DateUtil {
     }
 
     /**
-     * LocalDate 转 Date
-     * Jdk8 后 不推荐使用 {@link Date} Date
+     * LocalDate Convert Date
+     * Jdk8 after, not recommended {@link Date} Date
      *
      * @param localDate /
      * @return /
@@ -74,8 +74,8 @@ public class DateUtil {
 
 
     /**
-     * Date转 LocalDateTime
-     * Jdk8 后 不推荐使用 {@link Date} Date
+     * Date Convert LocalDateTime
+     * Jdk8 after, not recommended {@link Date} Date
      *
      * @param date /
      * @return /
@@ -85,7 +85,7 @@ public class DateUtil {
     }
 
     /**
-     * 日期 格式化
+     * Date formatting
      *
      * @param localDateTime /
      * @param patten /
@@ -97,7 +97,7 @@ public class DateUtil {
     }
 
     /**
-     * 日期 格式化
+     * Date formatting
      *
      * @param localDateTime /
      * @param df /
@@ -108,7 +108,7 @@ public class DateUtil {
     }
 
     /**
-     * 日期格式化 yyyy-MM-dd HH:mm:ss
+     * Date formatting yyyy-MM-dd HH:mm:ss
      *
      * @param localDateTime /
      * @return /
@@ -118,7 +118,7 @@ public class DateUtil {
     }
 
     /**
-     * 日期格式化 yyyy-MM-dd
+     * Date formatting yyyy-MM-dd
      *
      * @param localDateTime /
      * @return /
@@ -128,7 +128,7 @@ public class DateUtil {
     }
 
     /**
-     * 字符串转 LocalDateTime ，字符串格式 yyyy-MM-dd
+     * Convert string to LocalDateTime, string format yyyy-MM-dd
      *
      * @param localDateTime /
      * @return /
@@ -139,7 +139,7 @@ public class DateUtil {
     }
 
     /**
-     * 字符串转 LocalDateTime ，字符串格式 yyyy-MM-dd
+     * Convert string to LocalDateTime, string format yyyy-MM-dd
      *
      * @param localDateTime /
      * @return /
@@ -149,7 +149,7 @@ public class DateUtil {
     }
 
     /**
-     * 字符串转 LocalDateTime ，字符串格式 yyyy-MM-dd HH:mm:ss
+     * Convert string to LocalDateTime, string format yyyy-MM-dd HH:mm:ss
      *
      * @param localDateTime /
      * @return /

@@ -28,15 +28,15 @@ import java.util.List;
 @Data
 public class JobQueryCriteria {
 
-    @ApiModelProperty(value = "任务名称")
+    @ApiModelProperty(value = "Task name")
     @Query(type = Query.Type.INNER_LIKE)
     private String jobName;
 
     @Query
-    @ApiModelProperty(value = "是否成功")
+    @ApiModelProperty(value = "Whether it succeeded")
     private Boolean isSuccess;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

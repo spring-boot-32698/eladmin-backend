@@ -34,81 +34,81 @@ import java.util.Set;
 public interface DeployService {
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<DeployDto> queryAll(DeployQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部数据
-     * @param criteria 条件
+     * Query all data
+     * @param criteria Condition
      * @return /
      */
     List<DeployDto> queryAll(DeployQueryCriteria criteria);
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     DeployDto findById(Long id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(Deploy resources);
 
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(Deploy resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<Long> ids);
 
 	/**
-	 * 部署文件到服务器
-	 * @param fileSavePath 文件路径
-	 * @param appId 应用ID
+	 * Deploy files to the server
+	 * @param fileSavePath File path
+	 * @param appId App ID
      */
 	void deploy(String fileSavePath, Long appId);
 
     /**
-     * 查询部署状态
+     * Query deployment status
      * @param resources /
      * @return /
      */
     String serverStatus(Deploy resources);
     /**
-     * 启动服务
+     * Start service
      * @param resources /
      * @return /
      */
     String startServer(Deploy resources);
     /**
-     * 停止服务
+     * Stop service
      * @param resources /
      * @return /
      */
     String stopServer(Deploy resources);
 
     /**
-     * 停止服务
+     * Stop service
      * @param resources /
      * @return /
      */
     String serverReduction(DeployHistory resources);
 
     /**
-     * 导出数据
+     * Export data
      * @param queryAll /
      * @param response /
      * @throws IOException /

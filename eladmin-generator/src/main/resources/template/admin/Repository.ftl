@@ -29,7 +29,7 @@ public interface ${className}Repository extends JpaRepository<${className}, ${pk
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
     /**
-    * 根据 ${column.capitalColumnName} 查询
+    * According to ${column.capitalColumnName} Query
     * @param ${column.columnName} /
     * @return /
     */

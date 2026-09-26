@@ -39,7 +39,7 @@ import java.util.List;
 public class SqlUtils {
 
 	/**
-	 * 获取数据源
+	 * Get data source
 	 *
 	 * @param jdbcUrl /
 	 * @param userName /
@@ -64,20 +64,20 @@ public class SqlUtils {
 			druidDataSource.setDriverClassName(className);
 		}
 
-		// 去掉不安全的参数
+		// Remove unsafe parameters
 		jdbcUrl = sanitizeJdbcUrl(jdbcUrl);
 
 		druidDataSource.setUrl(jdbcUrl);
 		druidDataSource.setUsername(userName);
 		druidDataSource.setPassword(password);
-		// 配置获取连接等待超时的时间
+		// Configure the timeout for waiting to obtain a connection
 		druidDataSource.setMaxWait(3000);
-		// 配置初始化大小、最小、最大
+		// Configure initial, minimum and maximum size
 		druidDataSource.setInitialSize(1);
 		druidDataSource.setMinIdle(1);
 		druidDataSource.setMaxActive(1);
 
-		// 如果链接出现异常则直接判定为失败而不是一直重试
+		// If the connection fails, treat it as failed instead of retrying forever
 		druidDataSource.setBreakAfterAcquireFailure(true);
 		try {
 			druidDataSource.init();
@@ -138,7 +138,7 @@ public class SqlUtils {
 		try {
 			batchExecute(connection, readSqlList(sqlFile));
 		} catch (Exception e) {
-			log.error("sql脚本执行发生异常:{}",e.getMessage());
+			log.error("sql An exception occurred while executing the script:{}",e.getMessage());
 			return e.getMessage();
 		}finally {
 			releaseConnection(connection);
@@ -147,30 +147,30 @@ public class SqlUtils {
 	}
 
 	/**
-	 * 批量执行sql
+	 * Batch execute sql
 	 * @param connection /
 	 * @param sqlList /
 	 */
 	public static void batchExecute(Connection connection, List<String> sqlList) {
 		try (Statement st = connection.createStatement()) {
 			for (String sql : sqlList) {
-				// 去除末尾的分号
+				// Remove the trailing semicolon
 				if (sql.endsWith(";")) {
 					sql = sql.substring(0, sql.length() - 1);
 				}
-				// 检查 SQL 语句是否为空
+				// Check whether the SQL statement is empty
 				if (!sql.trim().isEmpty()) {
 					st.addBatch(sql);
 				}
 			}
 			st.executeBatch();
 		} catch (SQLException e) {
-			log.error("SQL脚本批量执行发生异常: {}，错误代码: {}", e.getMessage(), e.getErrorCode());
+			log.error("SQL An exception occurred while executing scripts in batch: {}, error code: {}", e.getMessage(), e.getErrorCode());
 		}
 	}
 
 	/**
-	 * 将文件中的sql语句以；为单位读取到列表中
+	 * Read the SQL statements in the file into a list, split by semicolons
 	 * @param sqlFile /
 	 * @return /
      */
@@ -185,10 +185,10 @@ public class SqlUtils {
 
 				if (line.trim().endsWith(";")) {
 					sqlList.add(sb.toString());
-					// 清空 StringBuilder
+					// Clear StringBuilder
 					sb.setLength(0);
 				} else {
-					// 在行之间加一个空格
+					// Add a space between the lines
 					sb.append(" ");
 				}
 			}
@@ -196,34 +196,34 @@ public class SqlUtils {
 				sqlList.add(sb.toString().trim());
 			}
 		} catch (Exception e) {
-			log.error("读取SQL文件时发生异常: {}", e.getMessage());
+			log.error("An exception occurred while reading the SQL file: {}", e.getMessage());
 		}
 		return sqlList;
 	}
 
 	/**
-	 * 去除不安全的参数
+	 * Remove unsafe parameters
 	 * @param jdbcUrl /
 	 * @return /
 	 */
 	private static String sanitizeJdbcUrl(String jdbcUrl) {
-		// 定义不安全参数和其安全替代值
+		// Define unsafe parameters and their safe replacements
 		String[][] unsafeParams = {
-				// allowLoadLocalInfile：允许使用 LOAD DATA LOCAL INFILE，可能导致文件泄露
+				// allowLoadLocalInfile: allows LOAD DATA LOCAL INFILE, which may lead to file disclosure
 				{"allowLoadLocalInfile", "false"},
-				// allowUrlInLocalInfile：允许在 LOAD DATA LOCAL INFILE 中使用 URL，可能导致未经授权的文件访问
+				// allowUrlInLocalInfile: allows URLs in LOAD DATA LOCAL INFILE, which may lead to unauthorized file access
 				{"allowUrlInLocalInfile", "false"},
-				// autoDeserialize：允许自动反序列化对象，可能导致反序列化漏洞
+				// autoDeserialize: allows automatic object deserialization, which may lead to deserialization vulnerabilities
 				{"autoDeserialize", "false"},
-				// allowNanAndInf：允许使用 NaN 和 Infinity 作为数字值，可能导致不一致的数据处理
+				// allowNanAndInf: allows NaN and Infinity as numeric values, which may cause inconsistent data handling
 				{"allowNanAndInf", "false"},
-				// allowMultiQueries：允许在一个语句中执行多个查询，可能导致 SQL 注入攻击
+				// allowMultiQueries: allows multiple queries in one statement, which may lead to SQL injection attacks
 				{"allowMultiQueries", "false"},
-				// allowPublicKeyRetrieval：允许从服务器检索公钥，可能导致中间人攻击
+				// allowPublicKeyRetrieval: allows retrieving the public key from the server, which may enable man-in-the-middle attacks
 				{"allowPublicKeyRetrieval", "false"}
 		};
 
-		// 替换不安全的参数
+		// Replace unsafe parameters
 		for (String[] param : unsafeParams) {
 			jdbcUrl = jdbcUrl.replaceAll("(?i)" + param[0] + "=true", param[0] + "=" + param[1]);
 		}

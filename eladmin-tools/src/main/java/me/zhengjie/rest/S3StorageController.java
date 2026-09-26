@@ -38,21 +38,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * amz S3 协议云存储管理
- * @author 郑杰
+ * amz S3 protocol cloud storage management
+ * @author Zheng Jie
  * @date 2025-06-25
  */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/s3Storage")
-@Api(tags = "工具：S3协议云存储管理")
+@Api(tags = "Tools: S3 protocol cloud storage management")
 public class S3StorageController {
 
     private final AmzS3Config amzS3Config;
     private final S3StorageService s3StorageService;
 
-    @ApiOperation("导出数据")
+    @ApiOperation("Export data")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('storage:list')")
     public void exportS3Storage(HttpServletResponse response, S3StorageQueryCriteria criteria) throws IOException {
@@ -60,14 +60,14 @@ public class S3StorageController {
     }
 
     @GetMapping
-    @ApiOperation("查询文件")
+    @ApiOperation("Query files")
     @PreAuthorize("@el.check('storage:list')")
     public ResponseEntity<PageResult<S3Storage>> queryS3Storage(S3StorageQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(s3StorageService.queryAll(criteria, pageable),HttpStatus.OK);
     }
 
     @PostMapping
-    @ApiOperation("上传文件")
+    @ApiOperation("Upload file")
     public ResponseEntity<Object> uploadS3Storage(@RequestParam MultipartFile file){
         S3Storage storage = s3StorageService.upload(file);
         Map<String,Object> map = new HashMap<>(3);
@@ -77,25 +77,25 @@ public class S3StorageController {
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
-    @Log("下载文件")
-    @ApiOperation("下载文件")
+    @Log("Download file")
+    @ApiOperation("Download file")
     @GetMapping(value = "/download/{id}")
     public ResponseEntity<Object> downloadS3Storage(@PathVariable Long id){
         Map<String,Object> map = new HashMap<>(1);
         S3Storage storage = s3StorageService.getById(id);
         if (storage == null) {
-            map.put("message", "文件不存在或已被删除");
+            map.put("message", "File does not exist or has been deleted");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
-        // 仅适合公开文件访问，私有文件可以使用服务中的 privateDownload 方法
+        // Only suitable for public file access; for private files use the privateDownload method in the service
         String url = amzS3Config.getDomain() + "/" + storage.getFilePath();
         map.put("url", url);
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
-    @Log("删除多个文件")
+    @Log("Delete multiple files")
     @DeleteMapping
-    @ApiOperation("删除多个文件")
+    @ApiOperation("Delete multiple files")
     @PreAuthorize("@el.check('storage:del')")
     public ResponseEntity<Object> deleteAllS3Storage(@RequestBody List<Long> ids) {
         s3StorageService.deleteAll(ids);

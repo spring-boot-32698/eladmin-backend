@@ -37,16 +37,16 @@ public class DeployDto extends BaseDTO implements Serializable {
 	@ApiModelProperty(value = "ID")
     private String id;
 
-	@ApiModelProperty(value = "应用")
+	@ApiModelProperty(value = "App")
 	private AppDto app;
 
-	@ApiModelProperty(value = "服务器")
+	@ApiModelProperty(value = "Server")
 	private Set<ServerDeployDto> deploys;
 
-	@ApiModelProperty(value = "服务器名称")
+	@ApiModelProperty(value = "Server name")
 	private String servers;
 
-	@ApiModelProperty(value = "服务状态")
+	@ApiModelProperty(value = "Service status")
 	private String status;
 
 	public String getServers() {

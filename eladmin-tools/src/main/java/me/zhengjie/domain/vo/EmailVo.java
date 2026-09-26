@@ -24,8 +24,8 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
- * 发送邮件时，接收参数的类
- * @author 郑杰
+ * Class that receives parameters when sending email
+ * @author Zheng Jie
  * @date 2018/09/28 12:02:14
  */
 @Data
@@ -34,14 +34,14 @@ import java.util.List;
 public class EmailVo {
 
     @NotEmpty
-    @ApiModelProperty(value = "收件人")
+    @ApiModelProperty(value = "Recipient")
     private List<String> tos;
 
     @NotBlank
-    @ApiModelProperty(value = "主题")
+    @ApiModelProperty(value = "Theme")
     private String subject;
 
     @NotBlank
-    @ApiModelProperty(value = "内容")
+    @ApiModelProperty(value = "Content")
     private String content;
 }

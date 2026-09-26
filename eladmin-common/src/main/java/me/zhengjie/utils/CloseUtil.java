@@ -20,7 +20,7 @@ import java.io.Closeable;
 /**
  * @author Zheng Jie
  * @website https://eladmin.vip
- * @description 用于关闭各种连接，缺啥补啥
+ * @description Used to close various connections, add what is missing
  * @date 2021-03-05
  **/
 public class CloseUtil {
@@ -30,7 +30,7 @@ public class CloseUtil {
             try {
                 closeable.close();
             } catch (Exception e) {
-                // 静默关闭
+                // Close silently
             }
         }
     }
@@ -40,7 +40,7 @@ public class CloseUtil {
             try {
                 closeable.close();
             } catch (Exception e) {
-                // 静默关闭
+                // Close silently
             }
         }
     }

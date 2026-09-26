@@ -47,7 +47,7 @@ public class ${className}Dto implements Serializable {
     </#if>
     <#if column.columnKey = 'PRI'>
     <#if !auto && pkColumnType = 'Long'>
-    /** 防止精度丢失 */
+    /** Prevent loss of precision */
     @JSONField(serializeUsing = ToStringSerializer.class)
     </#if>
     </#if>

@@ -32,8 +32,8 @@ import java.util.Set;
 public interface MenuService {
 
     /**
-     * 查询全部数据
-     * @param criteria 条件
+     * Query all data
+     * @param criteria Condition
      * @param isQuery /
      * @throws Exception /
      * @return /
@@ -41,26 +41,26 @@ public interface MenuService {
     List<MenuDto> queryAll(MenuQueryCriteria criteria, Boolean isQuery) throws Exception;
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     MenuDto findById(long id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(Menu resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(Menu resources);
 
     /**
-     * 获取所有子节点，包含自身ID
+     * Get all child nodes, including itself ID
      * @param menuList /
      * @param menuSet /
      * @return /
@@ -68,49 +68,49 @@ public interface MenuService {
     Set<Menu> getChildMenus(List<Menu> menuList, Set<Menu> menuSet);
 
     /**
-     * 构建菜单树
-     * @param menuDtos 原始数据
+     * Build menu tree
+     * @param menuDtos Raw data
      * @return /
      */
     List<MenuDto> buildTree(List<MenuDto> menuDtos);
 
     /**
-     * 构建菜单树
+     * Build menu tree
      * @param menuDtos /
      * @return /
      */
     List<MenuVo> buildMenus(List<MenuDto> menuDtos);
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     Menu findOne(Long id);
 
     /**
-     * 删除
+     * Delete
      * @param menuSet /
      */
     void delete(Set<Menu> menuSet);
 
     /**
-     * 导出
-     * @param queryAll 待导出的数据
+     * Export
+     * @param queryAll Data to export
      * @param response /
      * @throws IOException /
      */
     void download(List<MenuDto> queryAll, HttpServletResponse response) throws IOException;
 
     /**
-     * 懒加载菜单数据
+     * Lazy-load menu data
      * @param pid /
      * @return /
      */
     List<MenuDto> getMenus(Long pid);
 
     /**
-     * 根据ID获取同级与上级数据
+     * Get sibling and parent data by ID
      * @param menuDto /
      * @param objects /
      * @return /
@@ -118,7 +118,7 @@ public interface MenuService {
     List<MenuDto> getSuperior(MenuDto menuDto, List<Menu> objects);
 
     /**
-     * 根据当前用户获取菜单
+     * Get menus for the current user
      * @param currentUserId /
      * @return /
      */

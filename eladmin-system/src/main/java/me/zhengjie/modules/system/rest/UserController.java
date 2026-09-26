@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
  * @author Zheng Jie
  * @date 2018-11-23
  */
-@Api(tags = "系统：用户管理")
+@Api(tags = "System: user management")
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -68,55 +68,55 @@ public class UserController {
     private final RoleService roleService;
     private final VerifyService verificationCodeService;
 
-    @ApiOperation("导出用户数据")
+    @ApiOperation("Export user data")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('user:list')")
     public void exportUser(HttpServletResponse response, UserQueryCriteria criteria) throws IOException {
         userService.download(userService.queryAll(criteria), response);
     }
 
-    @ApiOperation("查询用户")
+    @ApiOperation("Query users")
     @GetMapping
     @PreAuthorize("@el.check('user:list')")
     public ResponseEntity<PageResult<UserDto>> queryUser(UserQueryCriteria criteria, Pageable pageable){
         if (!ObjectUtils.isEmpty(criteria.getDeptId())) {
             criteria.getDeptIds().add(criteria.getDeptId());
-            // 先查找是否存在子节点
+            // First check whether child nodes exist
             List<Dept> data = deptService.findByPid(criteria.getDeptId());
-            // 然后把子节点的ID都加入到集合中
+            // Then add all the child node IDs to the collection
             criteria.getDeptIds().addAll(deptService.getDeptChildren(data));
         }
-        // 数据权限
+        // Data permission
         List<Long> dataScopes = dataService.getDeptIds(userService.findByName(SecurityUtils.getCurrentUsername()));
-        // criteria.getDeptIds() 不为空并且数据权限不为空则取交集
+        // criteria.getDeptIds() If not empty and the data permission is not empty, take the intersection
         if (!CollectionUtils.isEmpty(criteria.getDeptIds()) && !CollectionUtils.isEmpty(dataScopes)){
-            // 取交集
+            // Take intersection
             criteria.getDeptIds().retainAll(dataScopes);
             if(!CollectionUtil.isEmpty(criteria.getDeptIds())){
                 return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
             }
         } else {
-            // 否则取并集
+            // Otherwise take the union
             criteria.getDeptIds().addAll(dataScopes);
             return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
         }
         return new ResponseEntity<>(PageUtil.noData(),HttpStatus.OK);
     }
 
-    @Log("新增用户")
-    @ApiOperation("新增用户")
+    @Log("Add user")
+    @ApiOperation("Add user")
     @PostMapping
     @PreAuthorize("@el.check('user:add')")
     public ResponseEntity<Object> createUser(@Validated @RequestBody User resources){
         checkLevel(resources);
-        // 默认密码 123456
+        // Default password 123456
         resources.setPassword(passwordEncoder.encode("123456"));
         userService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Log("修改用户")
-    @ApiOperation("修改用户")
+    @Log("Edit user")
+    @ApiOperation("Edit user")
     @PutMapping
     @PreAuthorize("@el.check('user:edit')")
     public ResponseEntity<Object> updateUser(@Validated(User.Update.class) @RequestBody User resources) throws Exception {
@@ -125,19 +125,19 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @Log("修改用户：个人中心")
-    @ApiOperation("修改用户：个人中心")
+    @Log("Edit user: Personal Center")
+    @ApiOperation("Edit user: Personal Center")
     @PutMapping(value = "center")
     public ResponseEntity<Object> centerUser(@Validated(User.Update.class) @RequestBody User resources){
         if(!resources.getId().equals(SecurityUtils.getCurrentUserId())){
-            throw new BadRequestException("不能修改他人资料");
+            throw new BadRequestException("Cannot modify another user's profile");
         }
         userService.updateCenter(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除用户")
-    @ApiOperation("删除用户")
+    @Log("Delete user")
+    @ApiOperation("Delete user")
     @DeleteMapping
     @PreAuthorize("@el.check('user:del')")
     public ResponseEntity<Object> deleteUser(@RequestBody Set<Long> ids){
@@ -145,30 +145,30 @@ public class UserController {
             Integer currentLevel =  Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
             Integer optLevel =  Collections.min(roleService.findByUsersId(id).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
             if (currentLevel > optLevel) {
-                throw new BadRequestException("角色权限不足，不能删除：" + userService.findById(id).getUsername());
+                throw new BadRequestException("Insufficient role permission, cannot delete:" + userService.findById(id).getUsername());
             }
         }
         userService.delete(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("修改密码")
+    @ApiOperation("Change password")
     @PostMapping(value = "/updatePass")
     public ResponseEntity<Object> updateUserPass(@RequestBody UserPassVo passVo) throws Exception {
         String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,passVo.getOldPass());
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,passVo.getNewPass());
         UserDto user = userService.findByName(SecurityUtils.getCurrentUsername());
         if(!passwordEncoder.matches(oldPass, user.getPassword())){
-            throw new BadRequestException("修改失败，旧密码错误");
+            throw new BadRequestException("Update failed, the old password is incorrect");
         }
         if(passwordEncoder.matches(newPass, user.getPassword())){
-            throw new BadRequestException("新密码不能与旧密码相同");
+            throw new BadRequestException("The new password cannot be the same as the old password");
         }
         userService.updatePass(user.getUsername(),passwordEncoder.encode(newPass));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("重置密码")
+    @ApiOperation("Reset password")
     @PutMapping(value = "/resetPwd")
     public ResponseEntity<Object> resetPwd(@RequestBody Set<Long> ids) {
         String pwd = passwordEncoder.encode("123456");
@@ -176,20 +176,20 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("修改头像")
+    @ApiOperation("Change avatar")
     @PostMapping(value = "/updateAvatar")
     public ResponseEntity<Object> updateUserAvatar(@RequestParam MultipartFile avatar){
         return new ResponseEntity<>(userService.updateAvatar(avatar), HttpStatus.OK);
     }
 
-    @Log("修改邮箱")
-    @ApiOperation("修改邮箱")
+    @Log("Change email")
+    @ApiOperation("Change email")
     @PostMapping(value = "/updateEmail/{code}")
     public ResponseEntity<Object> updateUserEmail(@PathVariable String code,@RequestBody User user) throws Exception {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,user.getPassword());
         UserDto userDto = userService.findByName(SecurityUtils.getCurrentUsername());
         if(!passwordEncoder.matches(password, userDto.getPassword())){
-            throw new BadRequestException("密码错误");
+            throw new BadRequestException("Wrong password");
         }
         verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + user.getEmail(), code);
         userService.updateEmail(userDto.getUsername(),user.getEmail());
@@ -197,14 +197,14 @@ public class UserController {
     }
 
     /**
-     * 如果当前用户的角色级别低于创建用户的角色级别，则抛出权限不足的错误
+     * If the current user's role level is lower than the creator's role level, throw an insufficient-permission error
      * @param resources /
      */
     private void checkLevel(User resources) {
         Integer currentLevel =  Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
         Integer optLevel = roleService.findByRoles(resources.getRoles());
         if (currentLevel > optLevel) {
-            throw new BadRequestException("角色权限不足");
+            throw new BadRequestException("Insufficient role permission");
         }
     }
 }

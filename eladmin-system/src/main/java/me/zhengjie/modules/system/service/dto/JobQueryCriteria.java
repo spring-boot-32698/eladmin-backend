@@ -30,15 +30,15 @@ import java.util.List;
 @NoArgsConstructor
 public class JobQueryCriteria {
 
-    @ApiModelProperty(value = "岗位名称")
+    @ApiModelProperty(value = "Job name")
     @Query(type = Query.Type.INNER_LIKE)
     private String name;
 
     @Query
-    @ApiModelProperty(value = "岗位状态")
+    @ApiModelProperty(value = "Job status")
     private Boolean enabled;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

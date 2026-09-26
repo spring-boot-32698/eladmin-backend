@@ -26,11 +26,11 @@ import me.zhengjie.annotation.Query;
 @Data
 public class DictDetailQueryCriteria {
 
-    @ApiModelProperty(value = "字典标签")
+    @ApiModelProperty(value = "Dictionary label")
     @Query(type = Query.Type.INNER_LIKE)
     private String label;
 
-    @ApiModelProperty(value = "字典名称")
+    @ApiModelProperty(value = "Dictionary name")
     @Query(propName = "name",joinName = "dict")
     private String dictName;
 }

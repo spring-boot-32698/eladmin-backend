@@ -47,16 +47,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(jwtUserDto == null){
             UserDto user = userService.getLoginData(username);
             if (user == null) {
-                throw new BadRequestException("用户不存在");
+                throw new BadRequestException("User does not exist");
             } else {
                 if (!user.getEnabled()) {
-                    throw new BadRequestException("账号未激活！");
+                    throw new BadRequestException("Account is not activated!");
                 }
-                // 获取用户的权限
+                // Get the user's permissions
                 List<AuthorityDto> authorities = roleService.buildPermissions(user);
-                // 初始化JwtUserDto
+                // Initialize JwtUserDto
                 jwtUserDto = new JwtUserDto(user, dataService.getDeptIds(user), authorities);
-                // 添加缓存数据
+                // Add cache data
                 userCacheManager.addUserCache(username, jwtUserDto);
             }
         }

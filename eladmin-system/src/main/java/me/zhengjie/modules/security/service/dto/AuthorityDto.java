@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- * 避免序列化问题
+ * Avoid serialization problems
  * @author Zheng Jie
  * @date 2018-11-30
  */
@@ -31,6 +31,6 @@ import org.springframework.security.core.GrantedAuthority;
 @AllArgsConstructor
 public class AuthorityDto implements GrantedAuthority {
 
-    @ApiModelProperty(value = "角色名")
+    @ApiModelProperty(value = "Role name")
     private String authority;
 }

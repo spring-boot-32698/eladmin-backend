@@ -19,14 +19,14 @@ import org.springframework.data.domain.Page;
 import java.util.*;
 
 /**
- * 分页工具
+ * Pagination utility
  * @author Zheng Jie
  * @date 2018-12-10
  */
 public class PageUtil extends cn.hutool.core.util.PageUtil {
 
     /**
-     * List 分页
+     * List Pagination
      */
     public static <T> List<T> paging(int page, int size , List<T> list) {
         int fromIndex = page * size;
@@ -41,21 +41,21 @@ public class PageUtil extends cn.hutool.core.util.PageUtil {
     }
 
     /**
-     * Page 数据处理，预防redis反序列化报错
+     * Page Data handling, to prevent Redis deserialization errors
      */
     public static <T> PageResult<T> toPage(Page<T> page) {
         return new PageResult<>(page.getContent(), page.getTotalElements());
     }
 
     /**
-     * 自定义分页
+     * Custom pagination
      */
     public static <T> PageResult<T> toPage(List<T> list, long totalElements) {
         return new PageResult<>(list, totalElements);
     }
 
     /**
-     * 返回空数据
+     * Return empty data
      */
     public static <T> PageResult<T> noData () {
         return new PageResult<>(null, 0);

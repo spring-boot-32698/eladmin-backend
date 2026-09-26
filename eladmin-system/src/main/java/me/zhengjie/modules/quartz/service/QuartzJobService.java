@@ -32,90 +32,90 @@ import java.util.Set;
 public interface QuartzJobService {
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部
-     * @param criteria 条件
+     * Query all
+     * @param criteria Condition
      * @return /
      */
     List<QuartzJob> queryAll(JobQueryCriteria criteria);
 
     /**
-     * 分页查询日志
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged log query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部
-     * @param criteria 条件
+     * Query all
+     * @param criteria Condition
      * @return /
      */
     List<QuartzLog> queryAllLog(JobQueryCriteria criteria);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(QuartzJob resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(QuartzJob resources);
 
     /**
-     * 删除任务
+     * Delete task
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id ID
      * @return /
      */
     QuartzJob findById(Long id);
 
     /**
-     * 更改定时任务状态
+     * Change scheduled task status
      * @param quartzJob /
      */
     void updateIsPause(QuartzJob quartzJob);
 
     /**
-     * 立即执行定时任务
+     * Execute the scheduled task now
      * @param quartzJob /
      */
     void execution(QuartzJob quartzJob);
 
     /**
-     * 导出定时任务
-     * @param queryAll 待导出的数据
+     * Export scheduled tasks
+     * @param queryAll Data to export
      * @param response /
      * @throws IOException /
      */
     void download(List<QuartzJob> queryAll, HttpServletResponse response) throws IOException;
 
     /**
-     * 导出定时任务日志
-     * @param queryAllLog 待导出的数据
+     * Export scheduled task logs
+     * @param queryAllLog Data to export
      * @param response /
      * @throws IOException /
      */
     void downloadLog(List<QuartzLog> queryAllLog, HttpServletResponse response) throws IOException;
 
     /**
-     * 执行子任务
+     * Execute sub-task
      * @param tasks /
      * @throws InterruptedException /
      */

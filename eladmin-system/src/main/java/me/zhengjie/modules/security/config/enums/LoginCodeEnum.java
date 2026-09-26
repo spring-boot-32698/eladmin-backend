@@ -16,7 +16,7 @@
 package me.zhengjie.modules.security.config.enums;
 
 /**
- * 验证码配置枚举
+ * Captcha config enum
  *
  * @author liaojinlong
  * @date 2020/6/10 17:40
@@ -24,23 +24,23 @@ package me.zhengjie.modules.security.config.enums;
 
 public enum LoginCodeEnum {
     /**
-     * 算数
+     * Arithmetic
      */
     ARITHMETIC,
     /**
-     * 中文
+     * Chinese
      */
     CHINESE,
     /**
-     * 中文闪图
+     * Chinese flash image
      */
     CHINESE_GIF,
     /**
-     * 闪图
+     * Flash image
      */
     GIF,
     /**
-     * 静态
+     * Static
      */
     SPEC
 }

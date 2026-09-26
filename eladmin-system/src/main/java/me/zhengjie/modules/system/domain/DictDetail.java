@@ -42,15 +42,15 @@ public class DictDetail extends BaseEntity implements Serializable {
 
     @JoinColumn(name = "dict_id")
     @ManyToOne(fetch=FetchType.LAZY)
-    @ApiModelProperty(value = "字典", hidden = true)
+    @ApiModelProperty(value = "Dictionary", hidden = true)
     private Dict dict;
 
-    @ApiModelProperty(value = "字典标签")
+    @ApiModelProperty(value = "Dictionary label")
     private String label;
 
-    @ApiModelProperty(value = "字典值")
+    @ApiModelProperty(value = "Dictionary value")
     private String value;
 
-    @ApiModelProperty(value = "排序")
+    @ApiModelProperty(value = "Sort")
     private Integer dictSort = 999;
 }

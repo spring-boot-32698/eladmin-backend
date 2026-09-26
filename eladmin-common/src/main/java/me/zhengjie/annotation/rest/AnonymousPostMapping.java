@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Annotation for mapping HTTP {@code POST} requests onto specific handler
  * methods.
- * 支持匿名访问 PostMapping
+ * Supports anonymous access PostMapping
  *
  * @author liaojinlong
  * @see AnonymousGetMapping

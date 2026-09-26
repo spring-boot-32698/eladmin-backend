@@ -29,16 +29,16 @@ import javax.validation.constraints.NotBlank;
 public class AuthUserDto {
 
     @NotBlank
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "Username")
     private String username;
 
     @NotBlank
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty(value = "Password")
     private String password;
 
-    @ApiModelProperty(value = "验证码")
+    @ApiModelProperty(value = "Verification code")
     private String code;
 
-    @ApiModelProperty(value = "验证码的key")
+    @ApiModelProperty(value = "of the captcha key")
     private String uuid = "";
 }

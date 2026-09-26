@@ -29,13 +29,13 @@ import java.util.Set;
 public interface DictRepository extends JpaRepository<Dict, Long>, JpaSpecificationExecutor<Dict> {
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void deleteByIdIn(Set<Long> ids);
 
     /**
-     * 查询
+     * Query
      * @param ids /
      * @return /
      */

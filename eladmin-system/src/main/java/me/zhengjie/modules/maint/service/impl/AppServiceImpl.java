@@ -64,10 +64,10 @@ public class AppServiceImpl implements AppService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void create(App resources) {
-        // 验证应用名称是否存在恶意攻击payload，https://github.com/elunez/eladmin/issues/873
+        // Check whether the app name contains a malicious attack payload,https://github.com/elunez/eladmin/issues/873
         String appName = resources.getName();
         if (appName.contains(";") || appName.contains("|") || appName.contains("&")) {
-            throw new IllegalArgumentException("非法的应用名称，请勿包含[; | &]等特殊字符");
+            throw new IllegalArgumentException("Illegal app name, do not include[; | &]and other special characters");
         }
         verification(resources);
         appRepository.save(resources);
@@ -76,10 +76,10 @@ public class AppServiceImpl implements AppService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(App resources) {
-        // 验证应用名称是否存在恶意攻击payload，https://github.com/elunez/eladmin/issues/873
+        // Check whether the app name contains a malicious attack payload,https://github.com/elunez/eladmin/issues/873
         String appName = resources.getName();
         if (appName.contains(";") || appName.contains("|") || appName.contains("&")) {
-            throw new IllegalArgumentException("非法的应用名称，请勿包含[; | &]等特殊字符");
+            throw new IllegalArgumentException("Illegal app name, do not include[; | &]and other special characters");
         }
         verification(resources);
         App app = appRepository.findById(resources.getId()).orElseGet(App::new);
@@ -92,13 +92,13 @@ public class AppServiceImpl implements AppService {
         String opt = "/opt";
         String home = "/home";
         if (!(resources.getUploadPath().startsWith(opt) || resources.getUploadPath().startsWith(home))) {
-            throw new BadRequestException("文件只能上传在opt目录或者home目录 ");
+            throw new BadRequestException("Files can only be uploaded to the opt or home directory ");
         }
         if (!(resources.getDeployPath().startsWith(opt) || resources.getDeployPath().startsWith(home))) {
-            throw new BadRequestException("文件只能部署在opt目录或者home目录 ");
+            throw new BadRequestException("Files can only be deployed to the opt or home directory ");
         }
         if (!(resources.getBackupPath().startsWith(opt) || resources.getBackupPath().startsWith(home))) {
-            throw new BadRequestException("文件只能备份在opt目录或者home目录 ");
+            throw new BadRequestException("Files can only be backed up to the opt or home directory ");
         }
     }
 
@@ -115,14 +115,14 @@ public class AppServiceImpl implements AppService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (AppDto appDto : queryAll) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("应用名称", appDto.getName());
-            map.put("端口", appDto.getPort());
-            map.put("上传目录", appDto.getUploadPath());
-            map.put("部署目录", appDto.getDeployPath());
-            map.put("备份目录", appDto.getBackupPath());
-            map.put("启动脚本", appDto.getStartScript());
-            map.put("部署脚本", appDto.getDeployScript());
-            map.put("创建日期", appDto.getCreateTime());
+            map.put("App name", appDto.getName());
+            map.put("Port", appDto.getPort());
+            map.put("Upload directory", appDto.getUploadPath());
+            map.put("Deployment directory", appDto.getDeployPath());
+            map.put("Backup directory", appDto.getBackupPath());
+            map.put("Startup script", appDto.getStartScript());
+            map.put("Deployment script", appDto.getDeployScript());
+            map.put("Created at", appDto.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

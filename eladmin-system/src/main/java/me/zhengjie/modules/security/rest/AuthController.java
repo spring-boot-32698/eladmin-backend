@@ -57,13 +57,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Zheng Jie
  * @date 2018-11-23
- * 授权、根据token获取用户详细信息
+ * Authorization, get user details by token
  */
 @Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@Api(tags = "系统：系统授权接口")
+@Api(tags = "System: system authorization endpoint")
 public class AuthController {
     private final SecurityProperties properties;
     private final RedisUtils redisUtils;
@@ -74,68 +74,68 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsServiceImpl userDetailsService;
 
-    @Log("用户登录")
-    @ApiOperation("登录授权")
+    @Log("User login")
+    @ApiOperation("Login authorization")
     @AnonymousPostMapping(value = "/login")
     public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
-        // 密码解密
+        // Password decryption
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
-        // 查询验证码
+        // Query verification code
         String code = redisUtils.get(authUser.getUuid(), String.class);
-        // 清除验证码
+        // Clear verification code
         redisUtils.del(authUser.getUuid());
         if (StringUtils.isBlank(code)) {
-            throw new BadRequestException("验证码不存在或已过期");
+            throw new BadRequestException("Verification code does not exist or has expired");
         }
         if (StringUtils.isBlank(authUser.getCode()) || !authUser.getCode().equalsIgnoreCase(code)) {
-            throw new BadRequestException("验证码错误");
+            throw new BadRequestException("Wrong verification code");
         }
-        // 获取用户信息
+        // Get user info
         JwtUserDto jwtUser = userDetailsService.loadUserByUsername(authUser.getUsername());
-        // 验证用户密码
+        // Validate the user password
         if (!passwordEncoder.matches(password, jwtUser.getPassword())) {
-            throw new BadRequestException("登录密码错误");
+            throw new BadRequestException("Wrong login password");
         }
         Authentication authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        // 生成令牌
+        // Generate token
         String token = tokenProvider.createToken(jwtUser);
-        // 返回 token 与 用户信息
+        // Return the token and user info
         Map<String, Object> authInfo = new HashMap<String, Object>(2) {{
             put("token", properties.getTokenStartWith() + token);
             put("user", jwtUser);
         }};
         if (loginProperties.isSingleLogin()) {
-            // 踢掉之前已经登录的token
+            // Kick out those who logged in earlier token
             onlineUserService.kickOutForUsername(authUser.getUsername());
         }
-        // 保存在线信息
+        // Save online info
         onlineUserService.save(jwtUser, token, request);
-        // 返回登录信息
+        // Return login info
         return ResponseEntity.ok(authInfo);
     }
 
-    @ApiOperation("获取用户信息")
+    @ApiOperation("Get user info")
     @GetMapping(value = "/info")
     public ResponseEntity<UserDetails> getUserInfo() {
         JwtUserDto jwtUser = (JwtUserDto) SecurityUtils.getCurrentUser();
         return ResponseEntity.ok(jwtUser);
     }
 
-    @ApiOperation("获取验证码")
+    @ApiOperation("Get verification code")
     @AnonymousGetMapping(value = "/code")
     public ResponseEntity<Object> getCode() {
-        // 获取运算的结果
+        // Get the result of the operation
         Captcha captcha = captchaConfig.getCaptcha();
         String uuid = properties.getCodeKey() + IdUtil.simpleUUID();
-        //当验证码类型为 arithmetic时且长度 >= 2 时，captcha.text()的结果有几率为浮点型
+        //When the captcha type is arithmetic and the length >= 2 when,captcha.text() result may be a float
         String captchaValue = captcha.text();
         if (captcha.getCharType() - 1 == LoginCodeEnum.ARITHMETIC.ordinal() && captchaValue.contains(".")) {
             captchaValue = captchaValue.split("\\.")[0];
         }
-        // 保存
+        // Save
         redisUtils.set(uuid, captchaValue, captchaConfig.getExpiration(), TimeUnit.MINUTES);
-        // 验证码信息
+        // Captcha info
         Map<String, Object> imgResult = new HashMap<String, Object>(2) {{
             put("img", captcha.toBase64());
             put("uuid", uuid);
@@ -143,7 +143,7 @@ public class AuthController {
         return ResponseEntity.ok(imgResult);
     }
 
-    @ApiOperation("退出登录")
+    @ApiOperation("Log out")
     @AnonymousDeleteMapping(value = "/logout")
     public ResponseEntity<Object> logout(HttpServletRequest request) {
         onlineUserService.logout(tokenProvider.getToken(request));

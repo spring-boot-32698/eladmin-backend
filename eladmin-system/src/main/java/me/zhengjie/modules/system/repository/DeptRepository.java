@@ -30,21 +30,21 @@ import java.util.Set;
 public interface DeptRepository extends JpaRepository<Dept, Long>, JpaSpecificationExecutor<Dept> {
 
     /**
-     * 根据 PID 查询
+     * Query by PID
      * @param id pid
      * @return /
      */
     List<Dept> findByPid(Long id);
 
     /**
-     * 获取顶级部门
+     * Get top-level departments
      * @return /
      */
     List<Dept> findByPidIsNull();
 
     /**
-     * 根据角色ID 查询
-     * @param roleId 角色ID
+     * Query by role ID
+     * @param roleId Role ID
      * @return /
      */
     @Query(value = "select d.* from sys_dept d, sys_roles_depts r where " +
@@ -52,14 +52,14 @@ public interface DeptRepository extends JpaRepository<Dept, Long>, JpaSpecificat
     Set<Dept> findByRoleId(Long roleId);
 
     /**
-     * 判断是否存在子节点
+     * Check whether child nodes exist
      * @param pid /
      * @return /
      */
     int countByPid(Long pid);
 
     /**
-     * 根据ID更新sub_count
+     * Update by ID sub_count
      * @param count /
      * @param id /
      */

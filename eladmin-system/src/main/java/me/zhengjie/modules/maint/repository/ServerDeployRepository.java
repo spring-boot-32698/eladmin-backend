@@ -26,7 +26,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface ServerDeployRepository extends JpaRepository<ServerDeploy, Long>, JpaSpecificationExecutor<ServerDeploy> {
 
     /**
-     * 根据IP查询
+     * Query by IP
      * @param ip /
      * @return /
      */

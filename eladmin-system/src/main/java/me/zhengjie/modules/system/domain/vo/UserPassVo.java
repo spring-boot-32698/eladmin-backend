@@ -19,16 +19,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 修改密码的 Vo 类
+ * Vo class for changing the password
  * @author Zheng Jie
- * @date 2019年7月11日13:59:49
+ * @date 2019-07-11 13:59:49
  */
 @Data
 public class UserPassVo {
 
-    @ApiModelProperty(value = "旧密码")
+    @ApiModelProperty(value = "Old password")
     private String oldPass;
 
-    @ApiModelProperty(value = "新密码")
+    @ApiModelProperty(value = "New password")
     private String newPass;
 }

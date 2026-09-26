@@ -27,7 +27,7 @@ import java.util.List;
 public interface QuartzJobRepository extends JpaRepository<QuartzJob,Long>, JpaSpecificationExecutor<QuartzJob> {
 
     /**
-     * 查询启用的任务
+     * Query enabled tasks
      * @return List
      */
     List<QuartzJob> findByIsPauseIsFalse();

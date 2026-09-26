@@ -33,61 +33,61 @@ import java.util.Set;
 public interface ServerDeployService {
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<ServerDeployDto> queryAll(ServerDeployQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部数据
-     * @param criteria 条件
+     * Query all data
+     * @param criteria Condition
      * @return /
      */
     List<ServerDeployDto> queryAll(ServerDeployQueryCriteria criteria);
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     ServerDeployDto findById(Long id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(ServerDeploy resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(ServerDeploy resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
-     * 根据IP查询
+     * Query by IP
      * @param ip /
      * @return /
      */
     ServerDeployDto findByIp(String ip);
 
 	/**
-	 * 测试登录服务器
+	 * Test server login
 	 * @param resources /
 	 * @return /
 	 */
 	Boolean testConnect(ServerDeploy resources);
 
     /**
-     * 导出数据
+     * Export data
      * @param queryAll /
      * @param response /
      * @throws IOException /

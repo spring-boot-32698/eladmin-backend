@@ -52,40 +52,40 @@ public class SpringSecurityConfig {
 
     @Bean
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
-        // 去除 ROLE_ 前缀
+        // Remove the ROLE_ prefix
         return new GrantedAuthorityDefaults("");
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // 密码加密方式
+        // Password encryption method
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        // 获取匿名标记
+        // Get anonymous marks
         Map<String, Set<String>> anonymousUrls = AnonTagUtils.getAnonymousUrl(applicationContext);
         return httpSecurity
-                // 禁用 CSRF
+                // Disable CSRF
                 .csrf().disable()
                 .addFilter(corsFilter)
-                // 授权异常
+                // Authorization exception
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationErrorHandler)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
-                // 防止iframe 造成跨域
+                // Prevent cross-origin issues caused by iframes
                 .and()
                 .headers()
                 .frameOptions()
                 .disable()
-                // 不创建会话
+                // Do not create a session
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                // 静态资源等等
+                // static resources, etc.
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",
@@ -94,19 +94,19 @@ public class SpringSecurityConfig {
                         "/**/*.js",
                         "/webSocket/**"
                 ).permitAll()
-                // swagger 文档
+                // swagger Docs
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/*/api-docs").permitAll()
-                // 文件
+                // File
                 .antMatchers("/avatar/**").permitAll()
                 .antMatchers("/file/**").permitAll()
-                // 阿里巴巴 druid
+                // Alibaba druid
                 .antMatchers("/druid/**").permitAll()
-                // 放行OPTIONS请求
+                // Allow OPTIONS requests
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 自定义匿名访问所有url放行：允许匿名和带Token访问，细腻化到每个 Request 类型
+                // Custom anonymous access, all urls allowed: anonymous and token access are permitted, fine-grained down to each Request type
                 // GET
                 .antMatchers(HttpMethod.GET, anonymousUrls.get(RequestMethodEnum.GET.getType()).toArray(new String[0])).permitAll()
                 // POST
@@ -117,9 +117,9 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.PATCH, anonymousUrls.get(RequestMethodEnum.PATCH.getType()).toArray(new String[0])).permitAll()
                 // DELETE
                 .antMatchers(HttpMethod.DELETE, anonymousUrls.get(RequestMethodEnum.DELETE.getType()).toArray(new String[0])).permitAll()
-                // 所有类型的接口都放行
+                // Allow all types of endpoints
                 .antMatchers(anonymousUrls.get(RequestMethodEnum.ALL.getType()).toArray(new String[0])).permitAll()
-                // 所有请求都需要认证
+                // All requests require authentication
                 .anyRequest().authenticated()
                 .and().apply(securityConfigurerAdapter())
                 .and().build();

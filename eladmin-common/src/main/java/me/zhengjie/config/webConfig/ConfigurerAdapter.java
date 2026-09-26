@@ -43,7 +43,7 @@ import java.util.List;
 @EnableWebMvc
 public class ConfigurerAdapter implements WebMvcConfigurer {
 
-    /** 文件配置 */
+    /** File config */
     private final FileProperties properties;
 
     public ConfigurerAdapter(FileProperties properties) {
@@ -74,13 +74,13 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        // 配置 FastJsonHttpMessageConverter
+        // Config FastJsonHttpMessageConverter
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         List<MediaType> supportMediaTypeList = new ArrayList<>();
         supportMediaTypeList.add(MediaType.APPLICATION_JSON);
         FastJsonConfig config = new FastJsonConfig();
         config.setDateFormat("yyyy-MM-dd HH:mm:ss");
-        // 开启引用检测
+        // Enable reference detection
         config.setWriterFeatures(JSONWriter.Feature.ReferenceDetection);
         converter.setFastJsonConfig(config);
         converter.setSupportedMediaTypes(supportMediaTypeList);

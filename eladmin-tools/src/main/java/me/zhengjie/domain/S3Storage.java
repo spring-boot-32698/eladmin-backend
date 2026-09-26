@@ -26,7 +26,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
-* @description S3存储实体类
+* @description S3 Store entity class
 * @author Zheng Jie
 * @date 2025-06-25
 **/
@@ -43,27 +43,27 @@ public class S3Storage extends BaseEntity implements Serializable {
     private Long id;
 
     @NotBlank
-    @ApiModelProperty(value = "文件名称")
+    @ApiModelProperty(value = "File name")
     private String fileName;
 
     @NotBlank
-    @ApiModelProperty(value = "真实存储的名称")
+    @ApiModelProperty(value = "Actual stored name")
     private String fileRealName;
 
     @NotBlank
-    @ApiModelProperty(value = "文件大小")
+    @ApiModelProperty(value = "File size")
     private String fileSize;
 
     @NotBlank
-    @ApiModelProperty(value = "文件MIME 类型")
+    @ApiModelProperty(value = "File MIME type")
     private String fileMimeType;
 
     @NotBlank
-    @ApiModelProperty(value = "文件类型")
+    @ApiModelProperty(value = "File type")
     private String fileType;
 
     @NotBlank
-    @ApiModelProperty(value = "文件路径")
+    @ApiModelProperty(value = "File path")
     private String filePath;
 
     public void copy(S3Storage source){

@@ -103,10 +103,10 @@ public class DatabaseServiceImpl implements DatabaseService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (DatabaseDto databaseDto : queryAll) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("数据库名称", databaseDto.getName());
-            map.put("数据库连接地址", databaseDto.getJdbcUrl());
-            map.put("用户名", databaseDto.getUserName());
-            map.put("创建日期", databaseDto.getCreateTime());
+            map.put("Database name", databaseDto.getName());
+            map.put("Database connection URL", databaseDto.getJdbcUrl());
+            map.put("Username", databaseDto.getUserName());
+            map.put("Created at", databaseDto.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

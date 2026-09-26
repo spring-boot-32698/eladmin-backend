@@ -22,10 +22,10 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- *   用于判断是否过滤数据权限
- *   1、如果没有用到 @OneToOne 这种关联关系，只需要填写 fieldName [参考：DeptQueryCriteria.class]
- *   2、如果用到了 @OneToOne ，fieldName 和 joinName 都需要填写，拿UserQueryCriteria.class举例:
- *   应该是 @DataPermission(joinName = "dept", fieldName = "id")
+ *   Used to decide whether to filter data permissions
+ *   1, if not used @OneToOne For this kind of association, only fill in fieldName [Reference:DeptQueryCriteria.class]
+ *   2, if used @OneToOne , both fieldName and joinName must be filled in, taking UserQueryCriteria.class as an example:
+ *   should be @DataPermission(joinName = "dept", fieldName = "id")
  * </p>
  * @author Zheng Jie
  * @website <a href="https://eladmin.vip">...</a>
@@ -36,12 +36,12 @@ import java.lang.annotation.Target;
 public @interface DataPermission {
 
     /**
-     * Entity 中的字段名称
+     * Entity The field name in
      */
     String fieldName() default "";
 
     /**
-     * Entity 中与部门关联的字段名称
+     * Entity The field name associated with the department in
      */
     String joinName() default "";
 }

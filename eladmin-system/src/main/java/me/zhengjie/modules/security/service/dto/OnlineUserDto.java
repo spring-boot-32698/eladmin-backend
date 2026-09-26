@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 在线用户
+ * Online Users
  * @author Zheng Jie
  */
 @Data
@@ -30,30 +30,30 @@ import java.util.Date;
 @NoArgsConstructor
 public class OnlineUserDto {
 
-    @ApiModelProperty(value = "Token编号")
+    @ApiModelProperty(value = "Token No.")
     private String uid;
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "Username")
     private String userName;
 
-    @ApiModelProperty(value = "昵称")
+    @ApiModelProperty(value = "Nickname")
     private String nickName;
 
-    @ApiModelProperty(value = "岗位")
+    @ApiModelProperty(value = "Job")
     private String dept;
 
-    @ApiModelProperty(value = "浏览器")
+    @ApiModelProperty(value = "Browser")
     private String browser;
 
     @ApiModelProperty(value = "IP")
     private String ip;
 
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty(value = "Address")
     private String address;
 
     @ApiModelProperty(value = "token")
     private String key;
 
-    @ApiModelProperty(value = "登录时间")
+    @ApiModelProperty(value = "Login time")
     private Date loginTime;
 }

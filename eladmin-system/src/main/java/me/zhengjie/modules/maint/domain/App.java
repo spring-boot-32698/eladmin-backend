@@ -40,25 +40,25 @@ public class App extends BaseEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@ApiModelProperty(value = "名称")
+	@ApiModelProperty(value = "Name")
     private String name;
 
-	@ApiModelProperty(value = "端口")
+	@ApiModelProperty(value = "Port")
 	private int port;
 
-	@ApiModelProperty(value = "上传路径")
+	@ApiModelProperty(value = "Upload path")
 	private String uploadPath;
 
-	@ApiModelProperty(value = "部署路径")
+	@ApiModelProperty(value = "Deployment path")
 	private String deployPath;
 
-	@ApiModelProperty(value = "备份路径")
+	@ApiModelProperty(value = "Backup path")
 	private String backupPath;
 
-	@ApiModelProperty(value = "启动脚本")
+	@ApiModelProperty(value = "Startup script")
 	private String startScript;
 
-	@ApiModelProperty(value = "部署脚本")
+	@ApiModelProperty(value = "Deployment script")
 	private String deployScript;
 
     public void copy(App source){

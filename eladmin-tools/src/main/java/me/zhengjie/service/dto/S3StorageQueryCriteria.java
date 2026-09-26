@@ -29,11 +29,11 @@ import java.util.List;
 public class S3StorageQueryCriteria {
 
     @Query(type =  Query.Type.INNER_LIKE)
-    @ApiModelProperty(value = "文件名称")
+    @ApiModelProperty(value = "File name")
     private String fileName;
 
     @Query(type = Query.Type.BETWEEN)
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     private List<Timestamp> createTime;
 
 }

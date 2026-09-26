@@ -26,20 +26,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author /
- * 接口限流测试类
+ * Rate limiting test class
  */
 @RestController
 @RequestMapping("/api/limit")
-@Api(tags = "系统：限流测试管理")
+@Api(tags = "System: rate limit test management")
 public class LimitController {
 
     private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
 
     /**
-     * 测试限流注解，下面配置说明该接口 60秒内最多只能访问 10次，保存到redis的键名为 limit_test，
+     * Test the rate limit annotation: the configuration below means this endpoint can be accessed at most 10 times within 60 seconds, and the Redis key is limit_test,
      */
     @AnonymousGetMapping
-    @ApiOperation("测试")
+    @ApiOperation("Test")
     @Limit(key = "test", period = 60, count = 10, name = "testLimit", prefix = "limit")
     public int testLimit() {
         return ATOMIC_INTEGER.incrementAndGet();

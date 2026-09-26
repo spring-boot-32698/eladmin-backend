@@ -21,12 +21,12 @@ import me.zhengjie.annotation.Query;
 
 /**
  * @author Zheng Jie
- * 公共查询类
+ * Common query class
  */
 @Data
 public class DictQueryCriteria {
 
-    @ApiModelProperty(value = "模糊查询")
+    @ApiModelProperty(value = "Fuzzy query")
     @Query(blurry = "name,description")
     private String blurry;
 }

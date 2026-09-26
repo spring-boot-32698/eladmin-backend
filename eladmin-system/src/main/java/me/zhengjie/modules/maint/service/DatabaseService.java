@@ -33,54 +33,54 @@ import java.util.Set;
 public interface DatabaseService {
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<DatabaseDto> queryAll(DatabaseQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部
-     * @param criteria 条件
+     * Query all
+     * @param criteria Condition
      * @return /
      */
     List<DatabaseDto> queryAll(DatabaseQueryCriteria criteria);
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     DatabaseDto findById(String id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(Database resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(Database resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<String> ids);
 
 	/**
-	 * 测试连接数据库
+	 * Test database connection
 	 * @param resources /
 	 * @return /
 	 */
 	boolean testConnection(Database resources);
 
     /**
-     * 导出数据
+     * Export data
      * @param queryAll /
      * @param response /
      * @throws IOException e

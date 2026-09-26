@@ -32,56 +32,56 @@ import java.util.Set;
 public interface JobService {
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     JobDto findById(Long id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      * @return /
      */
     void create(Job resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(Job resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<JobDto> queryAll(JobQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部数据
+     * Query all data
      * @param criteria /
      * @return /
      */
     List<JobDto> queryAll(JobQueryCriteria criteria);
 
     /**
-     * 导出数据
-     * @param queryAll 待导出的数据
+     * Export data
+     * @param queryAll Data to export
      * @param response /
      * @throws IOException /
      */
     void download(List<JobDto> queryAll, HttpServletResponse response) throws IOException;
 
     /**
-     * 验证是否被用户关联
+     * Validate whether it is associated with users
      * @param ids /
      */
     void verification(Set<Long> ids);

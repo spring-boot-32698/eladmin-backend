@@ -51,15 +51,15 @@ public class MonitorServiceImpl implements MonitorService {
             SystemInfo si = new SystemInfo();
             OperatingSystem os = si.getOperatingSystem();
             HardwareAbstractionLayer hal = si.getHardware();
-            // 系统信息
+            // System info
             resultMap.put("sys", getSystemInfo(os));
-            // cpu 信息
+            // cpu Info
             resultMap.put("cpu", getCpuInfo(hal.getProcessor()));
-            // 内存信息
+            // Memory info
             resultMap.put("memory", getMemoryInfo(hal.getMemory()));
-            // 交换区信息
+            // Swap info
             resultMap.put("swap", getSwapInfo(hal.getMemory()));
-            // 磁盘
+            // Disk
             resultMap.put("disk", getDiskInfo(os));
             resultMap.put("time", DateUtil.format(new Date(), "HH:mm:ss"));
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     /**
-     * 获取磁盘信息
+     * Get disk info
      * @return /
      */
     private Map<String,Object> getDiskInfo(OperatingSystem os) {
@@ -79,7 +79,7 @@ public class MonitorServiceImpl implements MonitorService {
         String osName = System.getProperty("os.name");
         long available = 0, total = 0;
         for (OSFileStore fs : fsArray){
-            // windows 需要将所有磁盘分区累加，linux 和 mac 直接累加会出现磁盘重复的问题，待修复
+            // windows All disk partitions need to be summed; summing directly on Linux and Mac double-counts disks, to be fixed
             if(osName.toLowerCase().startsWith(ElConstant.WIN)) {
                 available += fs.getUsableSpace();
                 total += fs.getTotalSpace();
@@ -102,7 +102,7 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     /**
-     * 获取交换区信息
+     * Get swap info
      * @param memory /
      * @return /
      */
@@ -123,7 +123,7 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     /**
-     * 获取内存信息
+     * Get memory info
      * @param memory /
      * @return /
      */
@@ -137,20 +137,20 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     /**
-     * 获取Cpu相关信息
+     * Get CPU-related info
      * @param processor /
      * @return /
      */
     private Map<String,Object> getCpuInfo(CentralProcessor processor) {
         Map<String,Object> cpuInfo = new LinkedHashMap<>();
         cpuInfo.put("name", processor.getProcessorIdentifier().getName());
-        cpuInfo.put("package", processor.getPhysicalPackageCount() + "个物理CPU");
-        cpuInfo.put("core", processor.getPhysicalProcessorCount() + "个物理核心");
+        cpuInfo.put("package", processor.getPhysicalPackageCount() + "physical CPU");
+        cpuInfo.put("core", processor.getPhysicalProcessorCount() + "physical cores");
         cpuInfo.put("coreNumber", processor.getPhysicalProcessorCount());
-        cpuInfo.put("logic", processor.getLogicalProcessorCount() + "个逻辑CPU");
-        // CPU信息
+        cpuInfo.put("logic", processor.getLogicalProcessorCount() + "logical CPU");
+        // CPU Info
         long[] prevTicks = processor.getSystemCpuLoadTicks();
-        // 默认等待300毫秒...
+        // Wait 300 ms by default...
         long time = 300;
         Util.sleep(time);
         long[] ticks = processor.getSystemCpuLoadTicks();
@@ -174,18 +174,18 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     /**
-     * 获取系统相关信息,系统、运行天数、系统IP
+     * Get system-related info,System, uptime in days, system IP
      * @param os /
      * @return /
      */
     private Map<String,Object> getSystemInfo(OperatingSystem os){
         Map<String,Object> systemInfo = new LinkedHashMap<>();
-        // jvm 运行时间
+        // jvm Uptime
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
         Date date = new Date(time);
-        // 计算项目运行时间
+        // Calculate the project uptime
         String formatBetween = DateUtil.formatBetween(date, new Date(), Level.HOUR);
-        // 系统信息
+        // System info
         systemInfo.put("os", os.toString());
         systemInfo.put("day", formatBetween);
         systemInfo.put("ip", StringUtils.getLocalIp());

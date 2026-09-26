@@ -24,7 +24,7 @@ import java.util.Map;
 public interface MonitorService {
 
     /**
-    * 查询数据分页
+    * Paged data query
     * @return Map<String,Object>
     */
     Map<String,Object> getServers();

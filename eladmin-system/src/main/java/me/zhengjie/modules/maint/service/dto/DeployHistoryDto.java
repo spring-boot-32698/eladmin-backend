@@ -30,18 +30,18 @@ public class DeployHistoryDto implements Serializable {
 	@ApiModelProperty(value = "ID")
     private String id;
 
-	@ApiModelProperty(value = "应用名称")
+	@ApiModelProperty(value = "App name")
     private String appName;
 
-	@ApiModelProperty(value = "部署IP")
+	@ApiModelProperty(value = "Deploy IP")
     private String ip;
 
-	@ApiModelProperty(value = "部署时间")
+	@ApiModelProperty(value = "Deployment time")
 	private Timestamp deployDate;
 
-	@ApiModelProperty(value = "部署人员")
+	@ApiModelProperty(value = "Deployer")
 	private String deployUser;
 
-	@ApiModelProperty(value = "部署编号")
+	@ApiModelProperty(value = "Deployment ID")
 	private Long deployId;
 }

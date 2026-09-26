@@ -19,14 +19,14 @@ import me.zhengjie.modules.system.service.dto.UserDto;
 import java.util.List;
 
 /**
- * 数据权限服务类
+ * Data permission service class
  * @author Zheng Jie
  * @date 2020-05-07
  */
 public interface DataService {
 
     /**
-     * 获取数据权限
+     * Get data permissions
      * @param user /
      * @return /
      */

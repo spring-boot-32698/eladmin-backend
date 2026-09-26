@@ -110,11 +110,11 @@ public class ServerDeployServiceImpl implements ServerDeployService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (ServerDeployDto deployDto : queryAll) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("服务器名称", deployDto.getName());
-            map.put("服务器IP", deployDto.getIp());
-            map.put("端口", deployDto.getPort());
-            map.put("账号", deployDto.getAccount());
-            map.put("创建日期", deployDto.getCreateTime());
+            map.put("Server name", deployDto.getName());
+            map.put("Server IP", deployDto.getIp());
+            map.put("Port", deployDto.getPort());
+            map.put("Account", deployDto.getAccount());
+            map.put("Created at", deployDto.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

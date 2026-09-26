@@ -29,37 +29,37 @@ import lombok.Getter;
 public enum RequestMethodEnum {
 
     /**
-     * 搜寻 @AnonymousGetMapping
+     * Search @AnonymousGetMapping
      */
     GET("GET"),
 
     /**
-     * 搜寻 @AnonymousPostMapping
+     * Search @AnonymousPostMapping
      */
     POST("POST"),
 
     /**
-     * 搜寻 @AnonymousPutMapping
+     * Search @AnonymousPutMapping
      */
     PUT("PUT"),
 
     /**
-     * 搜寻 @AnonymousPatchMapping
+     * Search @AnonymousPatchMapping
      */
     PATCH("PATCH"),
 
     /**
-     * 搜寻 @AnonymousDeleteMapping
+     * Search @AnonymousDeleteMapping
      */
     DELETE("DELETE"),
 
     /**
-     * 否则就是所有 Request 接口都放行
+     * Otherwise all Request endpoints are allowed
      */
     ALL("All");
 
     /**
-     * Request 类型
+     * Request Type
      */
     private final String type;
 

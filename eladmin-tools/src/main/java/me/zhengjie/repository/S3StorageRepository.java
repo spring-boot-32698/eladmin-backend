@@ -27,9 +27,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface S3StorageRepository extends JpaRepository<S3Storage, Long>, JpaSpecificationExecutor<S3Storage> {
 
 	/**
-	 * 根据ID查询文件路径
-	 * @param id 文件ID
-	 * @return 文件路径
+	 * Query the file path by ID
+	 * @param id File ID
+	 * @return File path
 	 */
 	@Query(value = "SELECT file_path FROM s3_storage WHERE id = ?1", nativeQuery = true)
 	String selectFilePathById(Long id);

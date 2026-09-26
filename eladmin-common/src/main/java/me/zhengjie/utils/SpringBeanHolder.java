@@ -39,22 +39,22 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     private static boolean addCallback = true;
 
     /**
-     * 针对 某些初始化方法，在SpringContextHolder 未初始化时 提交回调方法。
-     * 在SpringContextHolder 初始化后，进行回调使用
+     * For some initialization methods, submit a callback when SpringContextHolder is not yet initialized.
+     * Used as a callback after SpringContextHolder is initialized
      *
-     * @param callBack 回调函数
+     * @param callBack Callback function
      */
     public synchronized static void addCallBacks(SpringBeanHolder.CallBack callBack) {
         if (addCallback) {
             SpringBeanHolder.CALL_BACKS.add(callBack);
         } else {
-            log.warn("CallBack：{} 已无法添加！立即执行", callBack.getCallBackName());
+            log.warn("CallBack: {} can no longer be added! Execute now", callBack.getCallBackName());
             callBack.executor();
         }
     }
 
     /**
-     * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
+     * Get from the static variable applicationContext Bean, Automatically cast to the type of the assigned object.
      */
     public static <T> T getBean(String name) {
         assertContextInjected();
@@ -62,7 +62,7 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     }
 
     /**
-     * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
+     * Get from the static variable applicationContext Bean, Automatically cast to the type of the assigned object.
      */
     public static <T> T getBean(Class<T> requiredType) {
         assertContextInjected();
@@ -70,11 +70,11 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     }
 
     /**
-     * 获取SpringBoot 配置信息
+     * Get SpringBoot configuration
      *
-     * @param property     属性key
-     * @param defaultValue 默认值
-     * @param requiredType 返回类型
+     * @param property     Property key
+     * @param defaultValue Default value
+     * @param requiredType Return type
      * @return /
      */
     public static <T> T getProperties(String property, T defaultValue, Class<T> requiredType) {
@@ -86,9 +86,9 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     }
 
     /**
-     * 获取SpringBoot 配置信息
+     * Get SpringBoot configuration
      *
-     * @param property 属性key
+     * @param property Property key
      * @return /
      */
     public static String getProperties(String property) {
@@ -96,10 +96,10 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     }
 
     /**
-     * 获取SpringBoot 配置信息
+     * Get SpringBoot configuration
      *
-     * @param property     属性key
-     * @param requiredType 返回类型
+     * @param property     Property key
+     * @param requiredType Return type
      * @return /
      */
     public static <T> T getProperties(String property, Class<T> requiredType) {
@@ -107,20 +107,20 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     }
 
     /**
-     * 检查ApplicationContext不为空.
+     * Check that ApplicationContext is not null.
      */
     private static void assertContextInjected() {
         if (applicationContext == null) {
-            throw new IllegalStateException("applicaitonContext属性未注入, 请在applicationContext" +
-                    ".xml中定义SpringContextHolder或在SpringBoot启动类中注册SpringContextHolder.");
+            throw new IllegalStateException("applicaitonContext Property not injected, Please in applicationContext" +
+                    ".xml Define SpringContextHolder in or register it in the SpringBoot startup class SpringContextHolder.");
         }
     }
 
     /**
-     * 清除SpringContextHolder中的ApplicationContext为Null.
+     * Clear the ApplicationContext in SpringContextHolder:Null.
      */
     private static void clearHolder() {
-        log.debug("清除SpringContextHolder中的ApplicationContext:"
+        log.debug("Clear the one in SpringContextHolder ApplicationContext:"
                 + applicationContext);
         applicationContext = null;
     }
@@ -133,7 +133,7 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         if (SpringBeanHolder.applicationContext != null) {
-            log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:" + SpringBeanHolder.applicationContext);
+            log.warn("SpringContextHolder the ApplicationContext in it is overwritten, The original ApplicationContext is:" + SpringBeanHolder.applicationContext);
         }
         SpringBeanHolder.applicationContext = applicationContext;
         if (addCallback) {
@@ -146,7 +146,7 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     }
 
     /**
-     * 获取 @Service 的所有 bean 名称
+     * Get @Service  all bean names
      * @return /
      */
     public static List<String> getAllServiceBeanName() {
@@ -157,12 +157,12 @@ public class SpringBeanHolder implements ApplicationContextAware, DisposableBean
     interface CallBack {
 
         /**
-         * 回调执行方法
+         * Callback execution method
          */
         void executor();
 
         /**
-         * 本回调任务名称
+         * Name of this callback task
          * @return /
          */
         default String getCallBackName() {

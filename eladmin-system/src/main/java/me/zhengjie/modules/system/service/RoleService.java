@@ -35,101 +35,101 @@ import java.util.Set;
 public interface RoleService {
 
     /**
-     * 查询全部数据
+     * Query all data
      * @return /
      */
     List<RoleDto> queryAll();
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     RoleDto findById(long id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(Role resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(Role resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
-     * 根据用户ID查询
-     * @param userId 用户ID
+     * Query by user ID
+     * @param userId User ID
      * @return /
      */
     List<RoleSmallDto> findByUsersId(Long userId);
 
     /**
-     * 根据角色查询角色级别
+     * Query the role level by role
      * @param roles /
      * @return /
      */
     Integer findByRoles(Set<Role> roles);
 
     /**
-     * 修改绑定的菜单
+     * Edit bound menus
      * @param resources /
      * @param roleDTO /
      */
     void updateMenu(Role resources, RoleDto roleDTO);
 
     /**
-     * 解绑菜单
+     * Unbind menu
      * @param id /
      */
     void untiedMenu(Long id);
 
     /**
-     * 待条件分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * To be queried with conditions and pagination
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<RoleDto> queryAll(RoleQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部
-     * @param criteria 条件
+     * Query all
+     * @param criteria Condition
      * @return /
      */
     List<RoleDto> queryAll(RoleQueryCriteria criteria);
 
     /**
-     * 导出数据
-     * @param queryAll 待导出的数据
+     * Export data
+     * @param queryAll Data to export
      * @param response /
      * @throws IOException /
      */
     void download(List<RoleDto> queryAll, HttpServletResponse response) throws IOException;
 
     /**
-     * 获取用户权限信息
-     * @param user 用户信息
-     * @return 权限信息
+     * Get user permission info
+     * @param user User info
+     * @return Permission info
      */
     List<AuthorityDto> buildPermissions(UserDto user);
 
     /**
-     * 验证是否被用户关联
+     * Validate whether it is associated with users
      * @param ids /
      */
     void verification(Set<Long> ids);
 
     /**
-     * 根据菜单Id查询
+     * Query by menu ID
      * @param menuIds /
      * @return /
      */

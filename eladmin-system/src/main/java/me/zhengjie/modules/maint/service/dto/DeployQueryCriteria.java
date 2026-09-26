@@ -28,11 +28,11 @@ import java.util.List;
 @Data
 public class DeployQueryCriteria{
 
-	@ApiModelProperty(value = "应用名称")
+	@ApiModelProperty(value = "App name")
     @Query(type = Query.Type.INNER_LIKE, propName = "name", joinName = "app")
     private String appName;
 
-	@ApiModelProperty(value = "创建时间")
+	@ApiModelProperty(value = "Created at")
 	@Query(type = Query.Type.BETWEEN)
 	private List<Timestamp> createTime;
 

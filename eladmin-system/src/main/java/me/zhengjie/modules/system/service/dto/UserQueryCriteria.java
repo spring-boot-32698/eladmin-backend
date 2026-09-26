@@ -35,22 +35,22 @@ public class UserQueryCriteria implements Serializable {
     @ApiModelProperty(value = "ID")
     private Long id;
 
-    @ApiModelProperty(value = "部门ID集合")
+    @ApiModelProperty(value = "Department ID set")
     @Query(propName = "id", type = Query.Type.IN, joinName = "dept")
     private Set<Long> deptIds = new HashSet<>();
 
-    @ApiModelProperty(value = "模糊查询")
+    @ApiModelProperty(value = "Fuzzy query")
     @Query(blurry = "email,username,nickName")
     private String blurry;
 
     @Query
-    @ApiModelProperty(value = "是否启用")
+    @ApiModelProperty(value = "Enabled")
     private Boolean enabled;
 
-    @ApiModelProperty(value = "部门ID")
+    @ApiModelProperty(value = "Department ID")
     private Long deptId;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

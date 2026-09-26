@@ -26,7 +26,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 创建自定义的线程池
+ * Create a custom thread pool
  * @author Zheng Jie
  * @description
  * @date 2023-06-08
@@ -64,26 +64,26 @@ public class AsyncExecutor implements AsyncConfigurer {
     }
 
     /**
-     * 定义自定义异步处理线程池，线程名的标号自增计数器
+     * Define the custom async thread pool, with an auto-incrementing counter for thread name numbering
      */
     private static AtomicInteger atomicInteger = new AtomicInteger(1);
 
     /**
-     * 自定义线程池，用法 @Async
+     * Custom thread pool, usage @Async
      * @return Executor
      */
     @Override
     public Executor getAsyncExecutor() {
-        // 自定义工厂
+        // Custom factory
         ThreadFactory factory = r -> new Thread(r, "el-async-" + atomicInteger.getAndIncrement());
-        // 自定义线程池
+        // Custom thread pool
         return new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveSeconds,
                 TimeUnit.SECONDS, new ArrayBlockingQueue<>(queueCapacity), factory,
                 new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
     /**
-     * 自定义线程池，用法，注入到类中使用
+     * Custom thread pool, usage: inject it into a class
      * private ThreadPoolTaskExecutor taskExecutor;
      * @return ThreadPoolTaskExecutor
      */

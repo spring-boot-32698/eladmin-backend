@@ -32,42 +32,42 @@ import java.util.Set;
 public interface DictService {
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<DictDto> queryAll(DictQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部数据
+     * Query all data
      * @param dict /
      * @return /
      */
     List<DictDto> queryAll(DictQueryCriteria dict);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      * @return /
      */
     void create(Dict resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(Dict resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
-     * 导出数据
-     * @param queryAll 待导出的数据
+     * Export data
+     * @param queryAll Data to export
      * @param response /
      * @throws IOException /
      */

@@ -21,34 +21,34 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 构建前端路由时用到
+ * Used when building front-end routes
  * @author Zheng Jie
  * @date 2018-12-20
  */
 @Data
 public class MenuVo implements Serializable {
 
-    @ApiModelProperty(value = "菜单名称")
+    @ApiModelProperty(value = "Menu name")
     private String name;
 
-    @ApiModelProperty(value = "路径")
+    @ApiModelProperty(value = "Path")
     private String path;
 
-    @ApiModelProperty(value = "隐藏状态")
+    @ApiModelProperty(value = "Hidden state")
     private Boolean hidden;
 
-    @ApiModelProperty(value = "重定向")
+    @ApiModelProperty(value = "Redirect")
     private String redirect;
 
-    @ApiModelProperty(value = "组件")
+    @ApiModelProperty(value = "Component")
     private String component;
 
-    @ApiModelProperty(value = "总是显示")
+    @ApiModelProperty(value = "Always show")
     private Boolean alwaysShow;
 
-    @ApiModelProperty(value = "元数据")
+    @ApiModelProperty(value = "Metadata")
     private MenuMetaVo meta;
 
-    @ApiModelProperty(value = "子路由")
+    @ApiModelProperty(value = "Child routes")
     private List<MenuVo> children;
 }

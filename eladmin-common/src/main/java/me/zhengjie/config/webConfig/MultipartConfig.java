@@ -29,7 +29,7 @@ import java.io.File;
 public class MultipartConfig {
 
     /**
-     * 文件上传临时路径
+     * Temporary path for file uploads
      */
     @Bean
     MultipartConfigElement multipartConfigElement() {

@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 /**
- * 执行定时任务
+ * Execute scheduled task
  * @author /
  */
 @Slf4j

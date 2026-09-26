@@ -32,24 +32,24 @@ public class AppDto extends BaseDTO implements Serializable {
 	@ApiModelProperty(value = "ID")
     private Long id;
 
-	@ApiModelProperty(value = "应用名称")
+	@ApiModelProperty(value = "App name")
 	private String name;
 
-	@ApiModelProperty(value = "端口")
+	@ApiModelProperty(value = "Port")
 	private Integer port;
 
-	@ApiModelProperty(value = "上传目录")
+	@ApiModelProperty(value = "Upload directory")
 	private String uploadPath;
 
-	@ApiModelProperty(value = "部署目录")
+	@ApiModelProperty(value = "Deployment directory")
 	private String deployPath;
 
-	@ApiModelProperty(value = "备份目录")
+	@ApiModelProperty(value = "Backup directory")
 	private String backupPath;
 
-	@ApiModelProperty(value = "启动脚本")
+	@ApiModelProperty(value = "Startup script")
 	private String startScript;
 
-	@ApiModelProperty(value = "部署脚本")
+	@ApiModelProperty(value = "Deployment script")
 	private String deployScript;
 }

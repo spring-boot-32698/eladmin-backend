@@ -33,47 +33,47 @@ import java.util.Set;
 public interface AppService {
 
     /**
-     * 分页查询
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * Paged query
+     * @param criteria Condition
+     * @param pageable Pagination parameters
      * @return /
      */
     PageResult<AppDto> queryAll(AppQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 查询全部数据
-     * @param criteria 条件
+     * Query all data
+     * @param criteria Condition
      * @return /
      */
     List<AppDto> queryAll(AppQueryCriteria criteria);
 
     /**
-     * 根据ID查询
+     * Query by ID
      * @param id /
      * @return /
      */
     AppDto findById(Long id);
 
     /**
-     * 创建
+     * Create
      * @param resources /
      */
     void create(App resources);
 
     /**
-     * 编辑
+     * Edit
      * @param resources /
      */
     void update(App resources);
 
     /**
-     * 删除
+     * Delete
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
-     * 导出数据
+     * Export data
      * @param queryAll /
      * @param response /
      * @throws IOException /

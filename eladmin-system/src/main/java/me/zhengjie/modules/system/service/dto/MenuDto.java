@@ -35,60 +35,60 @@ public class MenuDto extends BaseDTO implements Serializable {
     @ApiModelProperty(value = "ID")
     private Long id;
 
-    @ApiModelProperty(value = "子节点")
+    @ApiModelProperty(value = "Child node")
     private List<MenuDto> children;
 
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "Type")
     private Integer type;
 
-    @ApiModelProperty(value = "权限")
+    @ApiModelProperty(value = "Permission")
     private String permission;
 
-    @ApiModelProperty(value = "菜单标题")
+    @ApiModelProperty(value = "Menu title")
     private String title;
 
-    @ApiModelProperty(value = "排序")
+    @ApiModelProperty(value = "Sort")
     private Integer menuSort;
 
-    @ApiModelProperty(value = "路径")
+    @ApiModelProperty(value = "Path")
     private String path;
 
-    @ApiModelProperty(value = "组件")
+    @ApiModelProperty(value = "Component")
     private String component;
 
     @ApiModelProperty(value = "PID")
     private Long pid;
 
-    @ApiModelProperty(value = "子节点数目")
+    @ApiModelProperty(value = "Number of child nodes")
     private Integer subCount;
 
-    @ApiModelProperty(value = "是否为Iframe")
+    @ApiModelProperty(value = "Whether it is Iframe")
     @JsonProperty("iFrame")
     private Boolean iFrame;
 
-    @ApiModelProperty(value = "是否缓存")
+    @ApiModelProperty(value = "Cached")
     private Boolean cache;
 
-    @ApiModelProperty(value = "是否隐藏")
+    @ApiModelProperty(value = "Hidden")
     private Boolean hidden;
 
-    @ApiModelProperty(value = "组件名称")
+    @ApiModelProperty(value = "Component name")
     private String componentName;
 
-    @ApiModelProperty(value = "图标")
+    @ApiModelProperty(value = "Icon")
     private String icon;
 
-    @ApiModelProperty(value = "是否存在子节点")
+    @ApiModelProperty(value = "Whether child nodes exist")
     public Boolean getHasChildren() {
         return subCount > 0;
     }
 
-    @ApiModelProperty(value = "是否叶子节点")
+    @ApiModelProperty(value = "Whether it is a leaf node")
     public Boolean getLeaf() {
         return subCount <= 0;
     }
 
-    @ApiModelProperty(value = "标题")
+    @ApiModelProperty(value = "Title")
     public String getLabel() {
         return title;
     }

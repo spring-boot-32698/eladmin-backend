@@ -34,35 +34,35 @@ public class DeptDto extends BaseDTO implements Serializable {
     @ApiModelProperty(value = "ID")
     private Long id;
 
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "Name")
     private String name;
 
-    @ApiModelProperty(value = "是否启用")
+    @ApiModelProperty(value = "Enabled")
     private Boolean enabled;
 
-    @ApiModelProperty(value = "排序")
+    @ApiModelProperty(value = "Sort")
     private Integer deptSort;
 
-    @ApiModelProperty(value = "子部门")
+    @ApiModelProperty(value = "Sub-department")
     private List<DeptDto> children;
 
-    @ApiModelProperty(value = "上级部门")
+    @ApiModelProperty(value = "Parent department")
     private Long pid;
 
-    @ApiModelProperty(value = "子部门数量", hidden = true)
+    @ApiModelProperty(value = "Number of sub-departments", hidden = true)
     private Integer subCount;
 
-    @ApiModelProperty(value = "是否有子节点")
+    @ApiModelProperty(value = "Whether it has child nodes")
     public Boolean getHasChildren() {
         return subCount > 0;
     }
 
-    @ApiModelProperty(value = "是否为叶子")
+    @ApiModelProperty(value = "Whether it is a leaf")
     public Boolean getLeaf() {
         return subCount <= 0;
     }
 
-    @ApiModelProperty(value = "部门全名")
+    @ApiModelProperty(value = "Department full name")
     public String getLabel() {
         return name;
     }

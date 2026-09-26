@@ -27,21 +27,21 @@ import java.sql.Timestamp;
 @Data
 public class SysLogSmallDto implements Serializable {
 
-    @ApiModelProperty(value = "描述")
+    @ApiModelProperty(value = "Description")
     private String description;
 
-    @ApiModelProperty(value = "请求IP")
+    @ApiModelProperty(value = "Request IP")
     private String requestIp;
 
-    @ApiModelProperty(value = "耗时")
+    @ApiModelProperty(value = "Time taken")
     private Long time;
 
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty(value = "Address")
     private String address;
 
-    @ApiModelProperty(value = "浏览器")
+    @ApiModelProperty(value = "Browser")
     private String browser;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "Created at")
     private Timestamp createTime;
 }

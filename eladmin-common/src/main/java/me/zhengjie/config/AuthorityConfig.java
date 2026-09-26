@@ -29,14 +29,14 @@ import java.util.stream.Collectors;
 public class AuthorityConfig {
 
     /**
-     * 判断接口是否有权限
-     * @param permissions 权限
+     * Check whether the endpoint has permission
+     * @param permissions Permission
      * @return /
      */
     public Boolean check(String ...permissions){
-        // 获取当前用户的所有权限
+        // Get all permissions of the current user
         List<String> elPermissions = SecurityUtils.getCurrentUser().getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        // 判断当前用户的所有权限是否包含接口上定义的权限
+        // Check whether all the current user's permissions include the permission defined on the endpoint
         return elPermissions.contains("admin") || Arrays.stream(permissions).anyMatch(elPermissions::contains);
     }
 }

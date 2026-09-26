@@ -24,17 +24,17 @@ import me.zhengjie.domain.GenConfig;
 public interface GenConfigService {
 
     /**
-     * 查询表配置
-     * @param tableName 表名
-     * @return 表配置
+     * Query table config
+     * @param tableName Table name
+     * @return Table config
      */
     GenConfig find(String tableName);
 
     /**
-     * 更新表配置
-     * @param tableName 表名
-     * @param genConfig 表配置
-     * @return 表配置
+     * Update table config
+     * @param tableName Table name
+     * @param genConfig Table config
+     * @return Table config
      */
     GenConfig update(String tableName, GenConfig genConfig);
 }

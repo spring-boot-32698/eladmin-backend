@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>eladmin-tools</artifactId>
-    <name>工具模块</name>
+    <name>Tools module</name>
 
     <properties>
         <mail.version>1.4.7</mail.version>
@@ -16,28 +16,28 @@
     </properties>
 
     <dependencies>
-        <!-- 同时需要common模块和logging模块只需要引入logging模块即可 -->
+        <!-- If both the common and logging modules are needed, only the logging module needs to be imported -->
         <dependency>
             <groupId>me.zhengjie</groupId>
             <artifactId>eladmin-logging</artifactId>
             <version>2.7</version>
         </dependency>
 
-        <!--邮件依赖-->
+        <!--Email dependency-->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>${mail.version}</version>
         </dependency>
 
-        <!--支付宝依赖-->
+        <!--Alipay dependency-->
         <dependency>
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
             <version>${alipay.version}</version>
         </dependency>
 
-        <!--amazon s3 依赖-->
+        <!--amazon s3 Dependencies-->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>

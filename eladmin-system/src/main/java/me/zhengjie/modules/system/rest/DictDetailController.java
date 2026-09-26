@@ -43,24 +43,24 @@ import java.util.Map;
 */
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "系统：字典详情管理")
+@Api(tags = "System: dictionary detail management")
 @RequestMapping("/api/dictDetail")
 public class DictDetailController {
 
     private final DictDetailService dictDetailService;
     private static final String ENTITY_NAME = "dictDetail";
 
-    @ApiOperation("查询字典详情")
+    @ApiOperation("Query dictionary detail")
     @GetMapping
     public ResponseEntity<PageResult<DictDetailDto>> queryDictDetail(DictDetailQueryCriteria criteria,
                                                                      @PageableDefault(sort = {"dictSort"}, direction = Sort.Direction.ASC) Pageable pageable){
         return new ResponseEntity<>(dictDetailService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
-    @ApiOperation("查询多个字典详情")
+    @ApiOperation("Query multiple dictionary details")
     @GetMapping(value = "/map")
     public ResponseEntity<Object> getDictDetailMaps(@RequestParam String dictName){
-        String[] names = dictName.split("[,，]");
+        String[] names = dictName.split("[,, ]");
         Map<String, List<DictDetailDto>> dictMap = new HashMap<>(16);
         for (String name : names) {
             dictMap.put(name, dictDetailService.getDictByName(name));
@@ -68,8 +68,8 @@ public class DictDetailController {
         return new ResponseEntity<>(dictMap, HttpStatus.OK);
     }
 
-    @Log("新增字典详情")
-    @ApiOperation("新增字典详情")
+    @Log("Add dictionary detail")
+    @ApiOperation("Add dictionary detail")
     @PostMapping
     @PreAuthorize("@el.check('dict:add')")
     public ResponseEntity<Object> createDictDetail(@Validated @RequestBody DictDetail resources){
@@ -80,8 +80,8 @@ public class DictDetailController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Log("修改字典详情")
-    @ApiOperation("修改字典详情")
+    @Log("Edit dictionary detail")
+    @ApiOperation("Edit dictionary detail")
     @PutMapping
     @PreAuthorize("@el.check('dict:edit')")
     public ResponseEntity<Object> updateDictDetail(@Validated(DictDetail.Update.class) @RequestBody DictDetail resources){
@@ -89,8 +89,8 @@ public class DictDetailController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除字典详情")
-    @ApiOperation("删除字典详情")
+    @Log("Delete dictionary detail")
+    @ApiOperation("Delete dictionary detail")
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('dict:del')")
     public ResponseEntity<Object> deleteDictDetail(@PathVariable Long id){

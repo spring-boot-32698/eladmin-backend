@@ -28,14 +28,14 @@ import java.util.Set;
 public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificationExecutor<Job> {
 
     /**
-     * 根据名称查询
-     * @param name 名称
+     * Query by name
+     * @param name Name
      * @return /
      */
     Job findByName(String name);
 
     /**
-     * 根据Id删除
+     * Delete by ID
      * @param ids /
      */
     void deleteAllByIdIn(Set<Long> ids);
